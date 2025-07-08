@@ -10,7 +10,7 @@ export default function Navbar({ user, onLogout }) {
     return (
         // Sticky full-width navbar
         <nav className="bg-white shadow-md fixed top-0 inset-x-0 z-50">
-            <div className="w-full px-4 sm:px-6 lg:px-8">
+            <div className="w-screen px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex items-center">
                         {/* Logo and Name */}
@@ -47,15 +47,25 @@ export default function Navbar({ user, onLogout }) {
                     {/* Always-visible icons & user section */}
                     <div className="flex items-center space-x-4">
                         {/* Notification Icon */}
-                        <button className="p-1 rounded-full hover:bg-gray-100">
-                            <Bell size={20} />
+                        <button className="btn btn-ghost btn-circle">
+                            <div className="indicator">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /> </svg>
+                                <span className="badge badge-xs badge-primary indicator-item"></span>
+                            </div>
                         </button>
 
                         {/* Join US or User Menu */}
-                        {user ? (
+                        {!user ? (
                             <Menu as="div" className="relative">
-                                <Menu.Button className="flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    <img className="h-8 w-8 rounded-full" src={user.photoURL} alt="User avatar" />
+                                <Menu.Button
+                                    className="p-1 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                    onMouseDown={(e) => e.stopPropagation()}
+                                >
+                                    <img
+                                        className="h-8 w-8 rounded-full"
+                                        src={user?.photoURL}
+                                        alt="User avatar"
+                                    />
                                 </Menu.Button>
                                 <Transition
                                     enter="transition ease-out duration-100"
@@ -68,7 +78,7 @@ export default function Navbar({ user, onLogout }) {
                                     <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                                         <div className="py-1">
                                             <div className="px-4 py-2 text-sm text-gray-700">
-                                                {user.displayName}
+                                                {user?.displayName}
                                             </div>
                                             <Menu.Item>
                                                 {({ active }) => (
