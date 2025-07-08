@@ -3,10 +3,12 @@ import { NavLink } from 'react-router';
 import { Menu, Transition } from '@headlessui/react';
 import logo from "../../../assets/new-logo.jpg"
 import useAnnouncement from '../../../hooks/useAnnouncement';
+import useAuth from '../../../hooks/useAuth';
 
-export default function Navbar({ user, onLogout }) {
+export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const { announcements } = useAnnouncement();
+    const {user, logout} = useAuth();
 
     return (
         // Sticky full-width navbar
@@ -56,7 +58,7 @@ export default function Navbar({ user, onLogout }) {
                         </button>
 
                         {/* Join US or User Menu */}
-                        {!user ? (
+                        {user ? (
                             <Menu as="div" className="relative">
                                 <Menu.Button
                                     className="p-1 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
@@ -94,7 +96,7 @@ export default function Navbar({ user, onLogout }) {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <button
-                                                        onClick={onLogout}
+                                                        onClick={logout}
                                                         className={`w-full text-left block px-4 py-2 text-sm text-red-600 ${active ? 'bg-gray-100' : ''}`}
                                                     >
                                                         Logout
@@ -171,7 +173,7 @@ export default function Navbar({ user, onLogout }) {
                                     Dashboard
                                 </NavLink>
                                 <button
-                                    onClick={onLogout}
+                                    onClick={logout}
                                     className="w-full text-left block px-4 py-2 text-red-600 hover:bg-gray-100"
                                 >
                                     Logout
