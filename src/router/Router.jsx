@@ -5,6 +5,7 @@ import AuthLayout from "../layouts/AuthLayout";
 import Login from "../Pages/Auth/Login/Login";
 import Home from "../Pages/Home/Home/Home";
 import Register from "../Pages/Auth/Register/Register";
+import AddPost from "../Pages/UserDashboard/AddPost/AddPost";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home
+      },
+      {
+        path: "add-post",
+        Component: AddPost
       }
     ]
   },

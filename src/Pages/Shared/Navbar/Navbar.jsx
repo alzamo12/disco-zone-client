@@ -44,6 +44,14 @@ export default function Navbar() {
                             >
                                 Membership
                             </NavLink>
+                            <NavLink
+                                to="/add-post"
+                                className={({ isActive }) =>
+                                    `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                }
+                            >
+                                Add Post
+                            </NavLink>
                         </div>
                     </div>
 
