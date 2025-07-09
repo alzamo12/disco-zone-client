@@ -8,6 +8,8 @@ import Register from "../Pages/Auth/Register/Register";
 import AddPost from "../Pages/UserDashboard/AddPost/AddPost";
 import PrivateRoute from "../routes/PrivateRoute";
 import UserDashboard from "../layouts/UserDashboard";
+import MyPosts from "../Pages/UserDashboard/MyPosts/MyPosts";
+import MyProfile from "../Pages/UserDashboard/MyProfile/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +48,14 @@ const router = createBrowserRouter([
       {
         path: "add-post",
         Component: AddPost
+      },
+      {
+        path: "my-posts",
+        Component: MyPosts
+      },
+      {
+        path: "my-profile",
+        Component: MyProfile
       }
     ]
   }

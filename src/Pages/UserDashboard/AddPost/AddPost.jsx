@@ -53,7 +53,7 @@ export default function AddPost() {
 
     if (isLoading) return <LoadingSpinner />;
 
-    if (count >= 5) {
+    if (count >= 10) {
         return (
             <div className="text-center py-16">
                 <p className="text-xl mb-4">You've reached the limit of 5 posts.</p>
@@ -86,97 +86,100 @@ export default function AddPost() {
     };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="max-w-lg mx-auto p-4 space-y-4">
-            {/* Author Image URL */}
-            <div>
-                <label className="block text-sm font-medium">Author Image URL</label>
-                <input
-                    type="url"
-                    {...register('authorImage', { required: true })}
-                    readOnly
-                    className="input input-bordered w-full"
-                />
-                {errors.authorImage && <span className="text-red-500 text-sm">Required</span>}
-            </div>
+        <div className='grid place-items-center min-h-screen'>
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl w-full  mx-auto p-4 space-y-4">
+                {/* Author Image URL */}
+                <h2 className="card-title">Please Add your Post</h2>
+                <div>
+                    <label className="block text-sm font-medium">Author Image URL</label>
+                    <input
+                        type="url"
+                        {...register('authorImage', { required: true })}
+                        readOnly
+                        className="input input-bordered w-full bg-gray-100"
+                    />
+                    {errors.authorImage && <span className="text-red-500 text-sm">Required</span>}
+                </div>
 
-            {/* Author Name (read-only) */}
-            <div>
-                <label className="block text-sm font-medium">Author Name</label>
-                <input
-                    type="text"
-                    {...register('authorName')}
-                    readOnly
-                    className="input input-bordered w-full bg-gray-100"
-                />
-            </div>
+                {/* Author Name (read-only) */}
+                <div>
+                    <label className="block text-sm font-medium">Author Name</label>
+                    <input
+                        type="text"
+                        {...register('authorName')}
+                        readOnly
+                        className="input input-bordered w-full bg-gray-100"
+                    />
+                </div>
 
-            {/* Author Email (read-only) */}
-            <div>
-                <label className="block text-sm font-medium">Author Email</label>
-                <input
-                    type="email"
-                    {...register('authorEmail')}
-                    readOnly
-                    className="input input-bordered w-full bg-gray-100"
-                />
-            </div>
+                {/* Author Email (read-only) */}
+                <div>
+                    <label className="block text-sm font-medium">Author Email</label>
+                    <input
+                        type="email"
+                        {...register('authorEmail')}
+                        readOnly
+                        className="input input-bordered w-full bg-gray-100"
+                    />
+                </div>
 
-            {/* Post Title */}
-            <div>
-                <label className="block text-sm font-medium">Post Title</label>
-                <input
-                    type="text"
-                    {...register('title', { required: true })}
-                    className="input input-bordered w-full"
-                />
-                {errors.title && <span className="text-red-500 text-sm">Required</span>}
-            </div>
+                {/* Post Title */}
+                <div>
+                    <label className="block text-sm font-medium">Post Title</label>
+                    <input
+                        type="text"
+                        {...register('title', { required: true })}
+                        className="input input-bordered w-full"
+                    />
+                    {errors.title && <span className="text-red-500 text-sm">Required</span>}
+                </div>
 
-            {/* Post Description */}
-            <div>
-                <label className="block text-sm font-medium">Post Description</label>
-                <textarea
-                    {...register('description', { required: true })}
-                    className="textarea textarea-bordered w-full"
-                    rows={4}
-                />
-                {errors.description && <span className="text-red-500 text-sm">Required</span>}
-            </div>
+                {/* Post Description */}
+                <div>
+                    <label className="block text-sm font-medium">Post Description</label>
+                    <textarea
+                        {...register('description', { required: true })}
+                        className="textarea textarea-bordered w-full"
+                        rows={4}
+                    />
+                    {errors.description && <span className="text-red-500 text-sm">Required</span>}
+                </div>
 
-            {/* Tag Dropdown */}
-            <div>
-                <label className="block text-sm font-medium">Tag</label>
-                <Controller
-                    control={control}
-                    name="tag"
-                    rules={{ required: true }}
-                    render={({ field }) => (
-                        <Select
-                            {...field}
-                            options={[
-                                { value: 'JavaScript', label: 'JavaScript' },
-                                { value: 'React', label: 'React' },
-                                // ...other tags
-                            ]}
-                            placeholder="Select a tag"
-                        />
-                    )}
-                />
-                {errors.tag && <span className="text-red-500 text-sm">Required</span>}
-            </div>
+                {/* Tag Dropdown */}
+                <div>
+                    <label className="block text-sm font-medium">Tag</label>
+                    <Controller
+                        control={control}
+                        name="tag"
+                        rules={{ required: true }}
+                        render={({ field }) => (
+                            <Select
+                                {...field}
+                                options={[
+                                    { value: 'JavaScript', label: 'JavaScript' },
+                                    { value: 'React', label: 'React' },
+                                    // ...other tags
+                                ]}
+                                placeholder="Select a tag"
+                            />
+                        )}
+                    />
+                    {errors.tag && <span className="text-red-500 text-sm">Required</span>}
+                </div>
 
-            {/* Hidden votes fields */}
-            <input type="hidden" {...register('upVote')} />
-            <input type="hidden" {...register('downVote')} />
+                {/* Hidden votes fields */}
+                <input type="hidden" {...register('upVote')} />
+                <input type="hidden" {...register('downVote')} />
 
-            {/* Submit Button */}
-            <button
-                type="submit"
-                className="btn btn-primary w-full"
-                disabled={mutation.isLoading}
-            >
-                {mutation.isLoading ? 'Adding...' : 'Add Post'}
-            </button>
-        </form>
+                {/* Submit Button */}
+                <button
+                    type="submit"
+                    className="btn btn-neutral w-full"
+                    disabled={mutation.isLoading}
+                >
+                    {mutation.isLoading ? 'Adding...' : 'Add Post'}
+                </button>
+            </form>
+        </div>
     );
 }
