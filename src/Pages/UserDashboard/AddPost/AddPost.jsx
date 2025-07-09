@@ -4,13 +4,14 @@ import Select from 'react-select';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
+import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 
 
 export default function AddPost() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
-    console.log(user)
+
     // 1️⃣ fetch post count using object syntax
     const { data: count = 0, isLoading } = useQuery({
         queryKey: ['postCount', user?.email],
@@ -36,6 +37,7 @@ export default function AddPost() {
         },
     });
 
+
     const { control, register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             authorImage: user?.photoURL || '',
@@ -49,7 +51,7 @@ export default function AddPost() {
         }
     });
 
-    if (isLoading) return <p>Loading...</p>;
+    if (isLoading) return <LoadingSpinner />;
 
     if (count >= 5) {
         return (
@@ -91,6 +93,7 @@ export default function AddPost() {
                 <input
                     type="url"
                     {...register('authorImage', { required: true })}
+                    readOnly
                     className="input input-bordered w-full"
                 />
                 {errors.authorImage && <span className="text-red-500 text-sm">Required</span>}
