@@ -11,7 +11,6 @@ export default function AddPost() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
-
     // 1️⃣ fetch post count using object syntax
     const { data: count = 0, isLoading } = useQuery({
         queryKey: ['postCount', user?.email],
@@ -53,7 +52,7 @@ export default function AddPost() {
 
     if (isLoading) return <LoadingSpinner />;
 
-    if (count >= 10) {
+    if (count >= 5) {
         return (
             <div className="text-center py-16">
                 <p className="text-xl mb-4">You've reached the limit of 5 posts.</p>
@@ -66,7 +65,7 @@ export default function AddPost() {
     }
 
     const onSubmit = data => {
-        if (count > 5) {
+        if (count >= 5) {
             Swal.fire({
                 icon: 'warning',
                 title: 'Post Limit Reached',

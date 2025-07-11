@@ -1,8 +1,10 @@
 import { useForm } from 'react-hook-form';
-import { Link, useLocation, useNavigate } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import { TbUserUp } from 'react-icons/tb';
 import useAuth from '../../../hooks/useAuth';
 import SocialLogin from '../../../components/shared/SocialLogin';
+import toast, { Toaster } from 'react-hot-toast';
+import useCreateUser from '../../../hooks/useCreateUser';
 const Register = () => {
     const {
         register,
@@ -11,23 +13,34 @@ const Register = () => {
     } = useForm();
     const { createUser, updateUser } = useAuth();
     const location = useLocation();
-    const navigate = useNavigate();
     const from = location.state?.from || "/";
+    const { mutate } = useCreateUser(from);
+
 
     const onSubmit = data => {
         const { name, email, password } = data;
+
+        const toastId = toast.loading("Please wait");
         createUser(email, password)
             .then(() => {
                 updateUser(name)
-                navigate(from, { state: { from: "registration" } })
-                sessionStorage.setItem("entry_alert_shown", "true")
+                    .then(async () => {
+                        const userData = {
+                            name,
+                            email
+                        };
+                        mutate(userData)
+                            .then(() => toast.dismiss(toastId))
+                    })
             })
             .catch(error => {
+                toast.error("Something went wrong", { id: toastId })
                 console.error(error)
             })
     }
     return (
         <div className="card-body w-3/4 mx-auto space-y-5">
+            <Toaster />
             <div className="space-y-2 md:space-y-4">
                 <h2 className="card-title text-2xl md:text-5xl font-bold">Create An Account</h2>
                 <h4 className="card-title">Register with Zap Shift</h4>

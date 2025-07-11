@@ -40,17 +40,7 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
             setLoading(false)
             setUser(currentUser)
-            // sessionStorage.removeItem('entry_alert_shown')
-            //  sessionStorage.removeItem('entry_alert_shown')
-            if (currentUser) {
-                const userData = {
-                    name: currentUser?.displayName,
-                    email: currentUser?.email,
-                    photoURL: currentUser?.photoURL
-                };
-                const res = await axiosSecure.post("/user", userData);
-                console.log(res.data)
-            }
+     
             console.log(currentUser)
         })
         return () => {

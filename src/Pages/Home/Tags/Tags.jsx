@@ -15,7 +15,7 @@ const Tags = () => {
     };
 
     return (
-        <section className="bg-neutral-800 py-10 px-4  rounded-full">
+        <section className="bg-neutral-800 py-10 px-4 rounded-xl  lg:rounded-full">
             <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-bold mb-6 text-white">Browse by Tag</h2>
 

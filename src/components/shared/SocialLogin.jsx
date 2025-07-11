@@ -1,21 +1,30 @@
 import { useLocation, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import useCreateUser from "../../hooks/useCreateUser";
 
 const SocialLogin = () => {
-    const {googleLogin} = useAuth();
+    const { googleLogin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from || "/";
+    const { mutate } = useCreateUser(from);
 
     const handleSocialLogin = () => {
         googleLogin()
-        .then(() => {
-            // alert("user signed in with google Successfully")
-            navigate(from, {state: {from: 'login'}})
-        })
-        .catch(err => {
-            console.error(err)
-        })
+            .then((result) => {
+                // alert("user signed in with google Successfully")
+                const user = result?.user;
+                const userData = {
+                    name: user?.name,
+                    email: user?.email,
+                    photoURL: user?.photoURL
+                };
+                navigate(from)
+                mutate(userData)
+            })
+            .catch(err => {
+                console.error(err)
+            })
     }
     return (
         <div className='text-center'>

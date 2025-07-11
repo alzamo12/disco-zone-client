@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 
 const MyProfile = () => {
     const axiosSecure = useAxiosSecure();
@@ -11,7 +12,7 @@ const MyProfile = () => {
     const { data: profile, isLoading: loadingProfile } = useQuery({
         queryKey: ['profile', email],
         queryFn: () =>
-            axiosSecure.get(`/user/profile/${email}`).then(res => res.data),
+            axiosSecure.get(`/user/${email}`).then(res => res.data),
     });
 
     // 2️⃣ Fetch recent posts
@@ -19,12 +20,12 @@ const MyProfile = () => {
         queryKey: ['recentPosts', email],
         queryFn: () =>
             axiosSecure
-                .get(`/posts?email=${user?.email}&sort=${-1}&limit=${3} `)
+                .get(`/posts?email=${user?.email}&sort=-createdAt&limit=${3} `)
                 .then(res => res.data),
     });
 
     if (loadingProfile || loadingPosts) {
-        return <div>Loading your profile…</div>;
+        return <LoadingSpinner />;
     }
 
     return (
