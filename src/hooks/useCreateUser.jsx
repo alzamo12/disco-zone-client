@@ -1,4 +1,3 @@
-// hooks/useCreateUser.js
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
@@ -13,7 +12,6 @@ const useCreateUser = ({ from = "/" }) => {
             const res = await axiosSecure.post('/user', userData);
             return res
         },
-        // onMutate: () => ,
         onSuccess: (res) => {
             if (res.status === 201) {
                 console.log(res.data)

@@ -10,7 +10,8 @@ import PrivateRoute from "../routes/PrivateRoute";
 import UserDashboard from "../layouts/UserDashboard";
 import MyPosts from "../Pages/UserDashboard/MyPosts/MyPosts";
 import MyProfile from "../Pages/UserDashboard/MyProfile/MyProfile";
-
+import AdminRoute from "../routes/AdminRoute"
+import Payment from "../Pages/Payment/Payment";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,7 +57,15 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         Component: MyProfile
-      }
+      },
+      {
+        path: "payment",
+        Component: Payment
+      },
+      {
+        path: "admin-profile",
+        element: <AdminRoute><div>This is admin</div></AdminRoute>
+      },
     ]
   }
 ]);

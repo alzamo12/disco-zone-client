@@ -12,7 +12,6 @@ const SocialLogin = () => {
     const handleSocialLogin = () => {
         googleLogin()
             .then((result) => {
-                // alert("user signed in with google Successfully")
                 const user = result?.user;
                 const userData = {
                     name: user?.name,

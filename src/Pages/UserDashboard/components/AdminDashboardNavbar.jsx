@@ -1,12 +1,10 @@
 import React from 'react';
+import NavLogo from '../../../components/shared/NavLogo';
 import { MdDashboard, MdLocalPostOffice, MdOutlineDashboard, MdOutlineLocalPostOffice } from 'react-icons/md';
+import { FaNewspaper, FaRegNewspaper, FaRegUser, FaUser } from 'react-icons/fa';
 import { NavLink } from 'react-router';
-import NavLogo from "../../../components/shared/NavLogo"
-import { FaRegNewspaper, FaNewspaper } from 'react-icons/fa6'; // Outline and filled versions
-import { FaRegUser, FaUser } from 'react-icons/fa';
 
-
-const UserDashboardSidebar = () => {
+const AdminDashboardNavbar = () => {
     return (
         <ul className="menu bg-neutral-800 text-white min-h-full w-80 p-4 space-y-5 relative">
             {/* Sidebar content here */}
@@ -18,19 +16,19 @@ const UserDashboardSidebar = () => {
                             <div>
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive ? 'bg-neutral-700' : ''}`}>
                                     {isActive ? <MdDashboard /> : <MdOutlineDashboard />}
-                                    <span>Dashboard</span>
+                                    <span>Admin dashboard</span>
                                 </div>
                             </div>
                         )
                     }
                 </NavLink></li>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/add-post">
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/admin-profile">
                     {
                         ({ isActive }) => (
                             <div>
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                     {isActive ? <MdLocalPostOffice className='text-white' /> : <MdOutlineLocalPostOffice />}
-                                    <span>Add Post</span>
+                                    <span>Admin Profile</span>
                                 </div>
                             </div>
                         )
@@ -42,7 +40,7 @@ const UserDashboardSidebar = () => {
                             <div>
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                     {isActive ? <FaNewspaper className='text-white' /> : <FaRegNewspaper />}
-                                    <span>My Post</span>
+                                    <span>Manages Users</span>
                                 </div>
                             </div>
                         )
@@ -54,19 +52,19 @@ const UserDashboardSidebar = () => {
                             <div>
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                     {isActive ? <FaUser className='text-white' /> : <FaRegUser />}
-                                    <span>My Profile</span>
+                                    <span>Make Admin</span>
                                 </div>
                             </div>
                         )
                     }
                 </NavLink></li>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/payment">
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/my-profile">
                     {
                         ({ isActive }) => (
                             <div>
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                     {isActive ? <FaUser className='text-white' /> : <FaRegUser />}
-                                    <span>Payment</span>
+                                    <span>Subscription Status</span>
                                 </div>
                             </div>
                         )
@@ -77,4 +75,4 @@ const UserDashboardSidebar = () => {
     );
 };
 
-export default UserDashboardSidebar;
+export default AdminDashboardNavbar;
