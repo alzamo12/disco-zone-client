@@ -1,10 +1,26 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAuth from '../../hooks/useAuth';
+import { useMutation } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
     const [error, setError] = useState("");
+    const axiosSecure = useAxiosSecure();
+    const {user} = useAuth();
+
+    const mutation  = useMutation({
+        mutationFn: async(updateUser) => {
+            const res = await axiosSecure.put(`/user/${user?.email}`, updateUser);
+            return res.data
+        },
+        onSuccess: () => {
+            toast.success("You have become a gold member")
+        }
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -29,6 +45,33 @@ const PaymentForm = () => {
         else {
             setError("")
             console.log(paymentMethod)
+        }
+
+        const res = await axiosSecure.post("/create-payment-intent");
+        console.log("data from payment intent", res.data);
+
+        const clientSecret = res.data.clientSecret;
+
+        const result = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+                card: elements.getElement(CardElement),
+                billing_details: {
+                    name: user?.displayName
+                }
+            }
+        })
+
+        if(result.error){
+            console.log("result error", result.error)
+        }
+        else{
+            if(result.paymentIntent.status === 'succeeded'){
+                console.log("Payment Succeeded")
+                const updateUser = {
+                    badge: "gold"
+                }
+                mutation.mutate(updateUser)
+            }
         }
     }
 
