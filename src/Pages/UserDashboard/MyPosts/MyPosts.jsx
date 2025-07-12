@@ -5,6 +5,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import useAuth from "../../../hooks/useAuth"
 import useAxiosSecure from "../../../hooks/useAxiosSecure"
 import LoadingSpinner from '../../../components/shared/LoadinSpinner';
+import { Link } from 'react-router';
 
 const MyPosts = () => {
   const { user } = useAuth();
@@ -64,12 +65,13 @@ const MyPosts = () => {
                     <td className="px-4 py-2">{post.title}</td>
                     <td className="px-4 py-2">{post.upVote - post.downVote}</td>
                     <td className="px-4 py-2">
-                      <button
+                      <Link
+                      to={`/comments/${post._id}`}
                         className="text-blue-500 hover:underline flex items-center"
                         onClick={() => handleComment(post._id)}
                       >
                         <FaComments className="mr-1" /> Comment
-                      </button>
+                      </Link>
                     </td>
                     <td className="px-4 py-2">
                       <button

@@ -13,6 +13,7 @@ import MyProfile from "../Pages/UserDashboard/MyProfile/MyProfile";
 import AdminRoute from "../routes/AdminRoute"
 import Payment from "../Pages/Payment/Payment";
 import PostDetails from "../Pages/PostDetails/PostDetails";
+import Comments from "../Pages/Comments/Comments";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
       {
         path: "post/:id",
         Component: PostDetails
+      },
+      {
+        path: "comments/:postId",
+        Component: Comments
       },
 
     ]
