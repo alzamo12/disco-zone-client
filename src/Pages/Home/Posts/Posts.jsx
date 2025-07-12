@@ -3,12 +3,14 @@ import { useQuery } from '@tanstack/react-query';
 import { FaSortAmountDown } from 'react-icons/fa';
 import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import { Link, useNavigate } from 'react-router';
 
 const Posts = () => {
     const axiosSecure = useAxiosSecure();
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState('new'); // 'new' or 'popular'
     const limit = 5;
+    const navigate = useNavigate();
 
     const { data: posts = [], isLoading } = useQuery({
         queryKey: ['homePosts', page, sort],
@@ -19,6 +21,10 @@ const Posts = () => {
                 )
                 .then(res => res.data)
     });
+
+    const handlePostClick = (id) => {
+       navigate(`/post/${id}`)
+    }
 
     if (isLoading) return <LoadingSpinner />
 
@@ -37,8 +43,9 @@ const Posts = () => {
 
             {posts?.map(post => (
                 <div
+                    onClick={() => handlePostClick(post._id)}
                     key={post._id}
-                    className="p-4 border rounded-lg hover:shadow-md transition"
+                    className="p-4 border rounded-lg hover:shadow-md transition cursor-pointer"
                 >
                     <div className="flex items-center space-x-3 mb-2">
                         <img
