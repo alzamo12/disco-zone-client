@@ -14,6 +14,8 @@ import AdminRoute from "../routes/AdminRoute"
 import Payment from "../Pages/Payment/Payment";
 import PostDetails from "../Pages/PostDetails/PostDetails";
 import Comments from "../Pages/Comments/Comments";
+import AdminDashboard from "../layouts/AdminDashboard"
+import Forbidden from "../Pages/Forbidden/Forbidden";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "comments/:postId",
         Component: Comments
+      },
+      {
+        path: "forbidden",
+        Component: Forbidden
       },
 
     ]
@@ -77,6 +83,11 @@ const router = createBrowserRouter([
         element: <AdminRoute><div>This is admin</div></AdminRoute>
       },
     ]
+  },
+  // admin router
+  {
+    path: '/admin-dashboard',
+    element: <AdminRoute><AdminDashboard /></AdminRoute>
   }
 ]);
 
