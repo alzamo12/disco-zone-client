@@ -16,6 +16,7 @@ import PostDetails from "../Pages/PostDetails/PostDetails";
 import Comments from "../Pages/Comments/Comments";
 import AdminDashboard from "../layouts/AdminDashboard"
 import Forbidden from "../Pages/Forbidden/Forbidden";
+import UsersTable from "../Pages/AdminDashboard/UsersTable";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -87,7 +88,13 @@ const router = createBrowserRouter([
   // admin router
   {
     path: '/admin-dashboard',
-    element: <AdminRoute><AdminDashboard /></AdminRoute>
+    element: <AdminRoute><AdminDashboard /></AdminRoute>,
+    children: [
+      {
+        path: "manage-users",
+        Component: UsersTable
+      }
+    ]
   }
 ]);
 

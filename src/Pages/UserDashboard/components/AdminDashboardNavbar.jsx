@@ -34,7 +34,7 @@ const AdminDashboardNavbar = () => {
                         )
                     }
                 </NavLink></li>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/my-posts">
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/admin-dashboard/manage-users">
                     {
                         ({ isActive }) => (
                             <div>
