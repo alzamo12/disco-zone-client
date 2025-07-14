@@ -6,7 +6,7 @@ const AnnouncementsSection = () => {
   if (announcements.length === 0) return null;
 
   return (
-    <section className="bg-neutral-800 py-8 px-4 rounded-2xl">
+    <section className="bg-neutral-800 py-8 max-w-5xl px-6 mx-auto rounded-2xl">
       <div className="max-w-6xl mx-auto">
         <h2 className="text-lg font-semibold mb-4 text-success">📢 Announcements</h2>
         <ul className="space-y-3">

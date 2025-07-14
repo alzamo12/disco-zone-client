@@ -15,10 +15,15 @@ const MyPosts = () => {
   // 1️ Fetch all posts by user
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['userPosts', user.email],
-    queryFn: () =>
-      axiosSecure
-        .get(`/posts?email=${encodeURIComponent(user.email)}&sort=-createdAt`)
-        .then(res => res.data),
+    queryFn: async() =>{
+      const res = await axiosSecure.get(`/posts?email=${user?.email}&sort=-createdAt`);
+      console.log(res.data)
+      return res.data
+    }
+      // axiosSecure
+      //   .get(`/posts?email=${encodeURIComponent(user.email)}&sort=-createdAt`)
+      //   .then(res => res.data),
+      
   });
 
   // 2️ Mutation to delete post

@@ -8,9 +8,9 @@ const Home = () => {
     return (
         <div className='space-y-20'>
             <Banner />
-            <Tags />
-            <AnnouncementsSection />
             <Posts />
+            <AnnouncementsSection />
+            <Tags />
         </div>
     );
 };

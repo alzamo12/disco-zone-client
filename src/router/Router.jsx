@@ -17,7 +17,9 @@ import Comments from "../Pages/Comments/Comments";
 import AdminDashboard from "../layouts/AdminDashboard"
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import UsersTable from "../Pages/AdminDashboard/UsersTable";
+import MakeAnnouncement from "../Pages/AdminDashboard/MakeAnnouncement/MakeAnnouncement";
 const router = createBrowserRouter([
+  // normale home routes
   {
     path: "/",
     Component: RootLayout,
@@ -41,6 +43,7 @@ const router = createBrowserRouter([
 
     ]
   },
+  // auth related routes
   {
     path: "/",
     Component: AuthLayout,
@@ -55,6 +58,7 @@ const router = createBrowserRouter([
       }
     ]
   },
+  // user dashboard related routes
   {
     path: "/dashboard",
     element: <PrivateRoute><UserDashboard /></PrivateRoute>,
@@ -85,7 +89,7 @@ const router = createBrowserRouter([
       },
     ]
   },
-  // admin router
+  // admin related routes
   {
     path: '/admin-dashboard',
     element: <AdminRoute><AdminDashboard /></AdminRoute>,
@@ -93,6 +97,10 @@ const router = createBrowserRouter([
       {
         path: "manage-users",
         Component: UsersTable
+      },
+      {
+        path: "make-announcement",
+        Component: MakeAnnouncement
       }
     ]
   }

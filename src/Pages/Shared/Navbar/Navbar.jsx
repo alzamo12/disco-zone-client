@@ -4,11 +4,13 @@ import { Menu, Transition } from '@headlessui/react';
 import logo from "../../../assets/new-logo.jpg"
 import useAnnouncement from '../../../hooks/useAnnouncement';
 import useAuth from '../../../hooks/useAuth';
+import useUserRole from '../../../hooks/useUserRole';
 
 export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
     const { announcements } = useAnnouncement();
     const {user, logout} = useAuth();
+    const {role} =  useUserRole();
 
     return (
         // Sticky full-width navbar
@@ -94,7 +96,7 @@ export default function Navbar() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <NavLink
-                                                        to="/dashboard"
+                                                        to={role === 'admin' ? "/admin-dashboard" : "/dashboard"}
                                                         className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''}`}
                                                     >
                                                         Dashboard
