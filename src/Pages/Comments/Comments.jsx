@@ -1,28 +1,47 @@
 // CommentsPage.jsx
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { showReportSuccess } from '../../utils/alerts/ShowRepotSuccess';
 
 const Comments = () => {
     const { postId } = useParams();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
+    const MySwal = withReactContent(Swal);
+    const queryClient = new QueryClient();
 
     // Fetch comments for this post
     const { data: comments = [], isLoading } = useQuery({
         queryKey: ['commentsList', postId],
-        queryFn: async() => {
-           const res = await axiosSecure.get(`/comments/${postId}`);
-           console.log(res.data)
-           return res.data
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/comments/${postId}`);
+            console.log(res.data)
+            return res.data
         }
     });
 
+    const { mutateAsync } = useMutation({
+        mutationFn: async ({commentId, feedback}) => {
+            console.log(feedback)
+            const res = await axiosSecure.put(`/comment/report/${commentId}`, { feedback });
+            return res.data
+        },
+        onSuccess: (result) => {
+            if (result?.modifiedCount > 0) {
+                queryClient.invalidateQueries({queryKey: ["commentsList"]})
+                showReportSuccess();
+                console.log(result)
+            }
+        }
+    })
+
     // Local state: feedback selection and reported flags
     const [feedbacks, setFeedbacks] = useState({});
-    const [reported, setReported] = useState({});
 
     const feedbackOptions = [
         'Inappropriate content',
@@ -36,8 +55,46 @@ const Comments = () => {
 
     const handleReport = (commentId) => {
         // implement actual API call here if needed
-        setReported(prev => ({ ...prev, [commentId]: true }));
+
+        MySwal.fire({
+            title: '<span class="text-red-400 text-xl font-bold">Report This Comment?</span>',
+            html: `
+                    <p class="text-gray-300 text-sm">
+                         This action will notify admins. Abuse of this feature may result in restrictions.
+                    </p>
+    `,
+            icon: 'warning',
+            background: '#111827', // dark-gray
+            color: '#e5e7eb',       // light text
+            showCancelButton: true,
+            confirmButtonText: 'Yes, report it',
+            cancelButtonText: 'Cancel',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'rounded-xl shadow-2xl p-6',
+                title: 'mb-2',
+                htmlContainer: 'mb-4',
+                confirmButton: 'bg-red-600 hover:bg-red-500 focus:ring-2 focus:ring-red-400 rounded-md px-4 py-2 text-white mx-2',
+                cancelButton: 'bg-gray-700 hover:bg-gray-600 rounded-md px-4 py-2 text-white mx-2',
+            },
+            showClass: {
+                popup: 'animate__animated animate__fadeInDown',
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp',
+            },
+        }).then(result => {
+            if (result.isConfirmed) {
+                const feedback = feedbacks[commentId];
+                const mutateData ={
+                    commentId,
+                    feedback
+                }
+                mutateAsync(mutateData)
+            }
+        })
     };
+
 
     if (isLoading) return <p className="text-center text-white py-10">Loading comments...</p>;
 
@@ -73,11 +130,11 @@ const Comments = () => {
                                 </td>
                                 <td className="px-4 py-2 align-top">
                                     <button
-                                        className={`px-3 py-1 rounded ${reported[comment._id] ? 'bg-gray-600' : 'bg-red-600 hover:bg-red-700'} text-white`}
-                                        disabled={!feedbacks[comment._id] || reported[comment._id]}
+                                        className={`px-3 py-1 rounded cursor-pointer ${comment?.reported ? 'bg-gray-600' : 'bg-red-600 hover:bg-red-700'} text-white`}
+                                        disabled={!feedbacks[comment._id] || comment?.reported}
                                         onClick={() => handleReport(comment._id)}
                                     >
-                                        {reported[comment._id] ? 'Reported' : 'Report'}
+                                        {comment?.reported ? 'Reported' : 'Report'}
                                     </button>
                                 </td>
                             </tr>
