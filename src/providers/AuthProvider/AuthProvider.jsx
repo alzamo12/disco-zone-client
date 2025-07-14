@@ -2,14 +2,12 @@ import { createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStat
 import { useEffect, useState } from "react";
 import app from "../../firebase/firebase.config"
 import { AuthContext } from "./AuthContext";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const auth = getAuth(app);
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
     const googleProvider = new GoogleAuthProvider();
-    const axiosSecure = useAxiosSecure();
 
     const createUser = (email, password) => {
         setLoading(true)
@@ -46,7 +44,7 @@ const AuthProvider = ({ children }) => {
         return () => {
             unsubscribe()
         }
-    }, [axiosSecure])
+    }, [])
 
     const authInfo = {
         user,

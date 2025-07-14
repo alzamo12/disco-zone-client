@@ -11,6 +11,7 @@ export default function Navbar() {
     const { announcements } = useAnnouncement();
     const {user, logout} = useAuth();
     const {role} =  useUserRole();
+    console.log('from navbar user role is',role)
 
     return (
         // Sticky full-width navbar

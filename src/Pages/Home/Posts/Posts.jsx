@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { FaSortAmountDown } from 'react-icons/fa';
 import LoadingSpinner from '../../../components/shared/LoadinSpinner';
-import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { Link, useNavigate } from 'react-router';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 const Posts = () => {
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState('new'); // 'new' or 'popular'
     const limit = 5;
@@ -14,16 +14,14 @@ const Posts = () => {
 
     const { data: posts = [], isLoading } = useQuery({
         queryKey: ['homePosts', page, sort],
-        queryFn: () =>
-            axiosSecure
-                .get(
-                    `/posts?sort=${sort}&page=${page}&limit=${limit}`
-                )
-                .then(res => res.data)
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/posts?sort=${sort}&page=${page}&limit=${limit}`);
+            return res.data
+        }
     });
 
     const handlePostClick = (id) => {
-       navigate(`/post/${id}`)
+        navigate(`/post/${id}`)
     }
 
     if (isLoading) return <LoadingSpinner />
