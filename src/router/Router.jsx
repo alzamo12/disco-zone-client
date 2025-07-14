@@ -18,6 +18,7 @@ import AdminDashboard from "../layouts/AdminDashboard"
 import Forbidden from "../Pages/Forbidden/Forbidden";
 import UsersTable from "../Pages/AdminDashboard/UsersTable";
 import MakeAnnouncement from "../Pages/AdminDashboard/MakeAnnouncement/MakeAnnouncement";
+import ReportedComments from "../Pages/AdminDashboard/ReportedComments/ReportedComments";
 const router = createBrowserRouter([
   // normale home routes
   {
@@ -101,6 +102,10 @@ const router = createBrowserRouter([
       {
         path: "make-announcement",
         Component: MakeAnnouncement
+      },
+      {
+        path: "reported-comments",
+        Component: ReportedComments
       }
     ]
   }
