@@ -1,8 +1,18 @@
-import useAnnouncement from "../../../hooks/useAnnouncement";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import LoadingSpinner from "../../../components/shared/LoadinSpinner";
 
 const AnnouncementsSection = () => {
-  const { announcements } = useAnnouncement();
+  const axiosPublic = useAxiosPublic();
+  const { data: announcements, isLoading } = useQuery({
+    queryKey: ['announcement'],
+    queryFn: async () => {
+      const res = await axiosPublic.get("/announcements");
+      return res.data
+    }
+  })
 
+  if (isLoading) return <LoadingSpinner />
   if (announcements.length === 0) return null;
 
   return (
@@ -12,7 +22,7 @@ const AnnouncementsSection = () => {
         <ul className="space-y-3">
           {announcements.map((item) => (
             <li key={item.id} className="bg-white border-l-4 border-green-400 px-4 py-3 shadow rounded-md">
-              {item.message}
+              {item.description}
             </li>
           ))}
         </ul>
