@@ -5,19 +5,19 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import LoadingSpinner from '../../../components/shared/LoadinSpinner';
-
+import { motion } from 'framer-motion';
 
 export default function AddPost() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
-    // 1️⃣ fetch post count using object syntax
+
     const { data: count = 0, isLoading } = useQuery({
         queryKey: ['postCount', user?.email],
-        queryFn: () => axiosSecure.get(`/posts/count/${user.email}`).then(res => res.data.count),
+        queryFn: () => axiosSecure.get(`/posts/count/${user.email}`)
+            .then(res => res.data.count),
     });
 
-    // 2️⃣ mutation to add post using object syntax
     const mutation = useMutation({
         mutationFn: postData => axiosSecure.post('/posts', postData),
         onSuccess: () => {
@@ -29,13 +29,11 @@ export default function AddPost() {
                 title: 'Post added successfully',
                 showConfirmButton: false,
                 timer: 2000,
-                timerProgressBar: true,
-                background: '#f0f9ff',
-                iconColor: '#2f855a'
+                background: '#1f1f1f',
+                color: '#fff'
             });
         },
     });
-
 
     const { control, register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
@@ -54,120 +52,130 @@ export default function AddPost() {
 
     if (count >= 5) {
         return (
-            <div className="text-center py-16">
-                <p className="text-xl mb-4">You've reached the limit of 5 posts.</p>
-                <button
-                    onClick={() => window.location = '/membership'}
-                    className="btn btn-primary"
-                >Become a Member</button>
+            <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
+                <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.4 }}
+                    className="bg-gray-800 p-8 rounded-2xl shadow-xl text-center max-w-md"
+                >
+                    <h2 className="text-2xl mb-4">Post Limit Reached</h2>
+                    <p className="mb-6">You’ve reached the limit of 5 posts.</p>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => window.location.href = '/membership'}
+                        className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full font-semibold"
+                    >
+                        Become a Member
+                    </motion.button>
+                </motion.div>
             </div>
         );
     }
 
     const onSubmit = data => {
-        const { tag, ...restData } = data;
-        const postData = {
-            ...restData,
-            tag: tag?.value
-        }
-        mutation.mutate(postData);
+        const { tag, ...rest } = data;
+        mutation.mutate({ ...rest, tag: tag?.value });
     };
 
     return (
-        <div className='grid place-items-center min-h-screen'>
-            <form onSubmit={handleSubmit(onSubmit)} className="max-w-xl w-full  mx-auto p-4 space-y-4">
-                {/* Author Image URL */}
-                <h2 className="card-title">Please Add your Post</h2>
-                <div>
-                    <label className="block text-sm font-medium">Author Image URL</label>
-                    <input
-                        type="url"
-                        {...register('authorImage', { required: true })}
-                        readOnly
-                        className="input input-bordered w-full bg-gray-100"
-                    />
-                    {errors.authorImage && <span className="text-red-500 text-sm">Required</span>}
-                </div>
+        <div className="flex justify-center py-12 px-4 bg-gray-900 min-h-screen">
+            <motion.form
+                onSubmit={handleSubmit(onSubmit)}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="w-full max-w-2xl bg-gray-800 p-8 rounded-2xl shadow-2xl space-y-6"
+            >
+                <h2 className="text-3xl font-bold text-center text-white">
+                    Create New Post
+                </h2>
 
-                {/* Author Name (read-only) */}
-                <div>
-                    <label className="block text-sm font-medium">Author Name</label>
-                    <input
-                        type="text"
-                        {...register('authorName')}
-                        readOnly
-                        className="input input-bordered w-full bg-gray-100"
-                    />
-                </div>
+                {[
+                    { label: 'Author Image URL', name: 'authorImage', readOnly: true },
+                    { label: 'Author Name', name: 'authorName', readOnly: true },
+                    { label: 'Author Email', name: 'authorEmail', readOnly: true },
+                    { label: 'Title', name: 'title', readOnly: false },
+                ].map(field => (
+                    <div key={field.name}>
+                        <label className="block mb-2 text-gray-300">{field.label}</label>
+                        <motion.input
+                            type={field.name === 'authorEmail' ? 'email' : 'text'}
+                            readOnly={field.readOnly}
+                            {...register(field.name, { required: !field.readOnly })}
+                            whileFocus={{ scale: 1.02 }}
+                            className={`w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${errors[field.name] ? 'border-red-500 border' : ''
+                                }`}
+                        />
+                        {errors[field.name] && (
+                            <p className="mt-1 text-sm text-red-500">{field.label} is required</p>
+                        )}
+                    </div>
+                ))}
 
-                {/* Author Email (read-only) */}
                 <div>
-                    <label className="block text-sm font-medium">Author Email</label>
-                    <input
-                        type="email"
-                        {...register('authorEmail')}
-                        readOnly
-                        className="input input-bordered w-full bg-gray-100"
-                    />
-                </div>
-
-                {/* Post Title */}
-                <div>
-                    <label className="block text-sm font-medium">Post Title</label>
-                    <input
-                        type="text"
-                        {...register('title', { required: true })}
-                        className="input input-bordered w-full"
-                    />
-                    {errors.title && <span className="text-red-500 text-sm">Required</span>}
-                </div>
-
-                {/* Post Description */}
-                <div>
-                    <label className="block text-sm font-medium">Post Description</label>
-                    <textarea
+                    <label className="block mb-2 text-gray-300">Description</label>
+                    <motion.textarea
+                        rows={5}
                         {...register('description', { required: true })}
-                        className="textarea textarea-bordered w-full"
-                        rows={4}
+                        whileFocus={{ scale: 1.02 }}
+                        className={`w-full p-3 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition ${errors.description ? 'border-red-500 border' : ''
+                            }`}
                     />
-                    {errors.description && <span className="text-red-500 text-sm">Required</span>}
+                    {errors.description && (
+                        <p className="mt-1 text-sm text-red-500">Description is required</p>
+                    )}
                 </div>
 
-                {/* Tag Dropdown */}
                 <div>
-                    <label className="block text-sm font-medium">Tag</label>
+                    <label className="block mb-2 text-gray-300">Tag</label>
                     <Controller
                         control={control}
                         name="tag"
                         rules={{ required: true }}
                         render={({ field }) => (
-                            <Select
-                                {...field}
-                                options={[
-                                    { value: 'JavaScript', label: 'JavaScript' },
-                                    { value: 'React', label: 'React' },
-                                    // ...other tags
-                                ]}
-                                placeholder="Select a tag"
-                            />
+                            <motion.div whileHover={{ scale: 1.02 }}>
+                                <Select
+                                    {...field}
+                                    options={[
+                                        { value: 'JavaScript', label: 'JavaScript' },
+                                        { value: 'React', label: 'React' },
+                                        // ...other tags
+                                    ]}
+                                    placeholder="Select a tag"
+                                    theme={theme => ({
+                                        ...theme,
+                                        colors: {
+                                            ...theme.colors,
+                                            primary25: '#4c51bf20',
+                                            primary: '#7f9cf520',
+                                            neutral0: '#2d3748',
+                                            neutral80: '#e2e8f0'
+                                        }
+                                    })}
+                                />
+                            </motion.div>
                         )}
                     />
-                    {errors.tag && <span className="text-red-500 text-sm">Required</span>}
+                    {errors.tag && (
+                        <p className="mt-1 text-sm text-red-500">Tag is required</p>
+                    )}
                 </div>
 
-                {/* Hidden votes fields */}
                 <input type="hidden" {...register('upVote')} />
                 <input type="hidden" {...register('downVote')} />
 
-                {/* Submit Button */}
-                <button
+                <motion.button
                     type="submit"
-                    className="btn btn-neutral w-full"
                     disabled={mutation.isLoading}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
+                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold disabled:opacity-50 transition"
                 >
                     {mutation.isLoading ? 'Adding...' : 'Add Post'}
-                </button>
-            </form>
+                </motion.button>
+            </motion.form>
         </div>
     );
 }

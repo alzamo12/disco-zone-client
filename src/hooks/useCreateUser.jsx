@@ -1,19 +1,21 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
-import useAxiosSecure from './useAxiosSecure';
+import toast from 'react-hot-toast';
+import useAxiosPublic from './useAxiosPublic';
 
 const useCreateUser = ({ from = "/" }) => {
-    const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
     const mutation = useMutation({
-        mutationFn: async userData => {
-            const res = await axiosSecure.post('/user', userData);
+        mutationFn: async ({userData}) => {
+            const res = await axiosPublic.post('/user', userData);
             return res
         },
-        onSuccess: (res) => {
+        onSuccess: (res, variables) => {
             if (res.status === 201) {
+                toast.dismiss(variables.toastId)
                 console.log(res.data)
                 navigate(from)
                 Swal.fire({

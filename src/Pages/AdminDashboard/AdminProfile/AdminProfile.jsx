@@ -55,7 +55,7 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="flex bg-gray-900 min-h-screen text-white">
+        <div className="flex bg-gray-900 min-h-[90vh] text-white">
             {/* Sidebar */}
             <aside className="hidden lg:block lg:w-1/4 bg-gray-800 p-6">
                 <motion.div

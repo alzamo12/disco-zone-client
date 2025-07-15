@@ -29,9 +29,10 @@ const Register = () => {
                             name,
                             email
                         };
-                        mutate(userData)
-                            .then(() => toast.dismiss(toastId))
+                        mutate({ userData, toastId })
                     })
+                // .then(() => toast.dismiss(toastId))
+                // })
             })
             .catch(error => {
                 toast.error("Something went wrong", { id: toastId })

@@ -6,7 +6,7 @@ import { NavLink } from 'react-router';
 
 const AdminDashboardNavbar = () => {
     return (
-        <ul className="menu bg-neutral-800 text-white min-h-full w-80 p-4 space-y-5 relative">
+        <ul className="menu bg-neutral-800 text-white min-h-full w-72 p-4 space-y-5 relative flex-1">
             {/* Sidebar content here */}
             <NavLogo />
             <ul className='space-y-3'>

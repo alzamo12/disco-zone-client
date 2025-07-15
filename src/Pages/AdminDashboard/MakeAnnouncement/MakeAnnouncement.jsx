@@ -3,95 +3,84 @@ import { useMutation } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { showAnnouncementSuccess } from '../../../utils/showAnnouncementSuccess';
+import { motion } from 'framer-motion';
 
 const MakeAnnouncement = () => {
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const { register, handleSubmit, formState: { errors }, reset } = useForm({
         defaultValues: {
-            authorImage: user?.photoURL,
-            authorName: user?.displayName
+            authorImage: user?.photoURL || '',
+            authorName: user?.displayName || ''
         }
     });
 
-    // Mutation to post new announcement
     const mutation = useMutation({
-        mutationFn: async (data) => {
-            const res = await axiosSecure.post("/announcement", data);
-            return res.data
-        },
-        onSuccess: (data, variables) => {
-            reset()
-            showAnnouncementSuccess(variables?.title)
+        mutationFn: (data) => axiosSecure.post('/announcement', data).then(res => res.data),
+        onSuccess: (_, variables) => {
+            reset();
+            showAnnouncementSuccess(variables.title);
         }
-    }
-    );
+    });
 
-    const onSubmit = (data) => {
-        // const date = new 
+    const onSubmit = data => {
         mutation.mutate(data);
     };
 
     return (
-        <div className=" text-white flex justify-center items-start p-4">
-            <div className="w-full lg:w-3/4 xl:w-full max-w-2xl bg-gray-800 rounded-2xl shadow-lg p-6">
-                <h2 className="text-2xl font-semibold mb-4 text-center">Make Announcement</h2>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    {/* Author Image */}
-                    <div>
-                        <label className="block mb-1">Author Image</label>
-                        <input
-                            type="text"
-                            readOnly
-                            {...register('authorImage', { required: 'Image is required' })}
-                            className="w-full p-2 bg-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        {errors.authorImage && <p className="text-red-500 mt-1">{errors.authorImage.message}</p>}
-                    </div>
+        <div className="flex justify-center items-start my-12 px-4">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="w-full max-w-2xl bg-gray-900 rounded-2xl shadow-xl p-8"
+            >
+                <h2 className="text-3xl font-semibold text-center text-white mb-6">
+                    Make Announcement
+                </h2>
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                    {[
+                        { label: 'Author Image', name: 'authorImage', readOnly: true, bg: 'bg-gray-800' },
+                        { label: 'Author Name', name: 'authorName', readOnly: true, bg: 'bg-gray-800' },
+                        { label: 'Title', name: 'title', readOnly: false, bg: 'bg-gray-700' },
+                    ].map(field => (
+                        <div key={field.name}>
+                            <label className="block mb-2 text-gray-300">{field.label}</label>
+                            <input
+                                type="text"
+                                readOnly={field.readOnly}
+                                {...register(field.name, { required: `${field.label} is required` })}
+                                className={`${field.bg} w-full p-3 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition`}
+                            />
+                            {errors[field.name] && (
+                                <p className="mt-1 text-sm text-red-500">{errors[field.name].message}</p>
+                            )}
+                        </div>
+                    ))}
 
-                    {/* Author Name */}
                     <div>
-                        <label className="block mb-1">Author Name</label>
-                        <input
-                            type="text"
-                            readOnly
-                            {...register('authorName', { required: 'Name is required' })}
-                            className="w-full p-2 bg-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        {errors.authorName && <p className="text-red-500 mt-1">{errors.authorName.message}</p>}
-                    </div>
-
-                    {/* Title */}
-                    <div>
-                        <label className="block mb-1">Title</label>
-                        <input
-                            type="text"
-                            {...register('title', { required: 'Title is required' })}
-                            className="w-full p-2 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        />
-                        {errors.title && <p className="text-red-500 mt-1">{errors.title.message}</p>}
-                    </div>
-
-                    {/* Description */}
-                    <div>
-                        <label className="block mb-1">Description</label>
+                        <label className="block mb-2 text-gray-300">Description</label>
                         <textarea
-                            rows={4}
+                            rows={5}
                             {...register('description', { required: 'Description is required' })}
-                            className="w-full p-2 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            className="bg-gray-700 w-full p-3 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
                         />
-                        {errors.description && <p className="text-red-500 mt-1">{errors.description.message}</p>}
+                        {errors.description && (
+                            <p className="mt-1 text-sm text-red-500">{errors.description.message}</p>
+                        )}
                     </div>
 
-                    <button
+                    <motion.button
                         type="submit"
                         disabled={mutation.isLoading}
-                        className="w-full py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium disabled:opacity-50"
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.98 }}
+                        className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold disabled:opacity-50 transition"
                     >
                         {mutation.isLoading ? 'Posting...' : 'Post Announcement'}
-                    </button>
+                    </motion.button>
                 </form>
-            </div>
+            </motion.div>
         </div>
     );
 };
