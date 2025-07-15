@@ -7,14 +7,14 @@ const axiosSecure = axios.create({
     // baseURL: "https://disco-zone-server.vercel.app"
 })
 const useAxiosSecure = () => {
-    const { user, logOut } = useAuth();
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
     // console.log("this is outside interceptor", user.accessToken)
 
     // add a request interceptors
     axiosSecure.interceptors.request.use(
         function (config) {
-            const accessToken = user.accessToken;
+            const accessToken = user?.accessToken;
             // console.log('this is inside interceptors',accessToken)
             config.headers.authorization = `Bearer ${accessToken}`
             return config;
@@ -32,7 +32,7 @@ const useAxiosSecure = () => {
         async (error) => {
             const status = error?.response?.status;
             if (status === 401 || status === 403) {
-                await logOut()
+                await logout()
                 navigate("/login")
             }
             return Promise.reject(error)
