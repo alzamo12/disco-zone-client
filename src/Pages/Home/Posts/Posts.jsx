@@ -5,7 +5,7 @@ import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 import { Link, useNavigate } from 'react-router';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
-const Posts = () => {
+const Posts = ({search}) => {
     const axiosPublic = useAxiosPublic();
     const [page, setPage] = useState(1);
     const [sort, setSort] = useState('new'); // 'new' or 'popular'
@@ -13,9 +13,9 @@ const Posts = () => {
     const navigate = useNavigate();
 
     const { data: posts = [], isLoading } = useQuery({
-        queryKey: ['homePosts', page, sort],
+        queryKey: ['homePosts', page, sort, search, limit],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/posts?sort=${sort}&page=${page}&limit=${limit}`);
+            const res = await axiosPublic.get(`/posts?sort=${sort}&page=${page}&limit=${limit}&search=${search}`);
             return res.data
         }
     });

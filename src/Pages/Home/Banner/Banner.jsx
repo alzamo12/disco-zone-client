@@ -2,14 +2,8 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import bgImage from '../../../assets/banner1.png';  // ensure you have a banner background image
 
-export default function Banner({ onSearch }) {
-    const [query, setQuery] = useState('');
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        alert("Success")
-        if (query.trim()) onSearch(query.trim());
-    };
+export default function Banner({handleSubmit}) {
+    const [query, setQuery] = useState('');   
 
     return (
         <section
@@ -41,6 +35,7 @@ export default function Banner({ onSearch }) {
                         <input
                             type="text"
                             value={query}
+                            name='tag'
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Enter tag keyword..."
                             className="w-full pl-14 pr-4 py-3 rounded-full bg-white bg-opacity-90 placeholder-gray-500 focus:outline-none focus:ring-4 focus:ring-success transition"

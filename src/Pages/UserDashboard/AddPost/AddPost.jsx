@@ -65,23 +65,12 @@ export default function AddPost() {
     }
 
     const onSubmit = data => {
-        if (count >= 5) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Post Limit Reached',
-                text: 'You have reached the maximum of 5 posts. Consider becoming a member for unlimited posts.',
-                confirmButtonText: 'Go to Membership',
-                background: '#fff',
-                iconColor: '#d69e2e',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '/membership';
-                }
-            });
+        const { tag, ...restData } = data;
+        const postData = {
+            ...restData,
+            tag: tag?.value
         }
-        else {
-            mutation.mutate(data);
-        }
+        mutation.mutate(postData);
     };
 
     return (
