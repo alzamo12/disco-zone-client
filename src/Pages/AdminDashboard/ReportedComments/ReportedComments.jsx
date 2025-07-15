@@ -1,16 +1,19 @@
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { showReportSuccess } from '../../../utils/alerts/ShowRepotSuccess';
 import LoadingSpinner from '../../../components/shared/LoadinSpinner';
+import { useState } from 'react';
 
 const ReportedComments = () => {
     const axiosSecure = useAxiosSecure();
-    const queryClient = new QueryClient();
-    const { data: comments, isLoading } = useQuery({
-        queryKey: ['reportedComment'],
+    const queryClient = useQueryClient();
+    const [page, setPage] = useState(1);
+    const limit = 2;
+
+    const { data: commentsData, isLoading } = useQuery({
+        queryKey: ['reportedComment', limit, page],
         queryFn: async () => {
-            const res = await axiosSecure.get("/reported-comments");
-            console.log(res.data)
+            const res = await axiosSecure.get(`/reported-comments?limit=${limit}&page=${page}`);
             return res.data
         }
     });
@@ -44,6 +47,10 @@ const ReportedComments = () => {
     if (isLoading) {
         return <LoadingSpinner />;
     }
+
+    const { comments, commentsCount } = commentsData;
+    const totalPage = Math.ceil(commentsCount / limit);
+    console.log(comments)
     return (
         <div className="w-3/4 mx-auto bg-gray-900 text-white p-4 lg:p-8">
             <h1 className="text-2xl font-semibold mb-6">Reported Activities</h1>
@@ -94,6 +101,22 @@ const ReportedComments = () => {
                         )}
                     </tbody>
                 </table>
+                {/* Pagination controls */}
+                <div className="flex justify-center space-x-4 mt-6">
+                    <button
+                        onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                        className="btn btn-sm"
+                    >Previous</button>
+                    <span>Page {page} out of {totalPage}</span>
+                    <button
+                        onClick={() => {
+                            setPage(prev => prev + 1);
+                        }}
+                        disabled={page === totalPage}
+                        className="btn btn-sm"
+                    >Next</button>
+                </div>
             </div>
         </div>
     );

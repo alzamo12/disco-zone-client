@@ -42,7 +42,10 @@ const router = createBrowserRouter([
         path: "forbidden",
         Component: Forbidden
       },
-
+      {
+        path:"membership",
+        Component: Payment
+      }
     ]
   },
   // auth related routes
@@ -80,11 +83,7 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         Component: MyProfile
-      },
-      {
-        path: "payment",
-        Component: Payment
-      },
+      }
 
     ]
   },

@@ -4,14 +4,13 @@ import LoadingSpinner from "../../../components/shared/LoadinSpinner";
 
 const AnnouncementsSection = () => {
   const axiosPublic = useAxiosPublic();
-  const { data: announcements, isLoading } = useQuery({
+  const { data: announcements = [], isLoading } = useQuery({
     queryKey: ['announcement'],
     queryFn: async () => {
       const res = await axiosPublic.get("/announcements");
       return res.data
     }
   })
-
   if (isLoading) return <LoadingSpinner />
   if (announcements.length === 0) return null;
 

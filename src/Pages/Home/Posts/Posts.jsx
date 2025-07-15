@@ -12,13 +12,14 @@ const Posts = ({search}) => {
     const limit = 5;
     const navigate = useNavigate();
 
-    const { data: posts = [], isLoading } = useQuery({
+    const { data:posts = [], isLoading } = useQuery({
         queryKey: ['homePosts', page, sort, search, limit],
         queryFn: async () => {
             const res = await axiosPublic.get(`/posts?sort=${sort}&page=${page}&limit=${limit}&search=${search}`);
             return res.data
         }
     });
+
 
     const handlePostClick = (id) => {
         navigate(`/post/${id}`)

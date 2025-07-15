@@ -1,39 +1,38 @@
 // CommentsPage.jsx
 import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { showReportSuccess } from '../../utils/alerts/ShowRepotSuccess';
+import LoadingSpinner from '../../components/shared/LoadinSpinner';
 
 const Comments = () => {
     const { postId } = useParams();
     const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const MySwal = withReactContent(Swal);
-    const queryClient = new QueryClient();
+    const queryClient = useQueryClient();
 
     // Fetch comments for this post
-    const { data: comments = [], isLoading } = useQuery({
+    const { data: comments, isLoading } = useQuery({
         queryKey: ['commentsList', postId],
         queryFn: async () => {
             const res = await axiosSecure.get(`/comments/${postId}`);
-            console.log(res.data)
             return res.data
         }
     });
 
     const { mutateAsync } = useMutation({
-        mutationFn: async ({commentId, feedback}) => {
-            console.log(feedback)
+        mutationFn: async ({ commentId, feedback }) => {
             const res = await axiosSecure.put(`/comment/report/${commentId}`, { feedback });
             return res.data
         },
         onSuccess: (result) => {
             if (result?.modifiedCount > 0) {
-                queryClient.invalidateQueries({queryKey: ["commentsList"]})
+                queryClient.invalidateQueries({ queryKey: ["commentsList", postId] })
                 showReportSuccess();
                 console.log(result)
             }
@@ -86,7 +85,7 @@ const Comments = () => {
         }).then(result => {
             if (result.isConfirmed) {
                 const feedback = feedbacks[commentId];
-                const mutateData ={
+                const mutateData = {
                     commentId,
                     feedback
                 }
@@ -96,7 +95,8 @@ const Comments = () => {
     };
 
 
-    if (isLoading) return <p className="text-center text-white py-10">Loading comments...</p>;
+    if (isLoading) return <LoadingSpinner />
+
 
     return (
         <div className="max-w-4xl mx-auto p-4 text-white">
@@ -141,6 +141,7 @@ const Comments = () => {
                         ))}
                     </tbody>
                 </table>
+             
             </div>
             {!user && (
                 <p className="mt-4 text-center text-gray-400">Login to report comments.</p>

@@ -4,16 +4,19 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import LoadingSpinner from '../../components/shared/LoadinSpinner';
 
 const UsersTable = () => {
     const axiosSecure = useAxiosSecure();
     const [searchTerm, setSearchTerm] = useState('');
     const MySwal = withReactContent(Swal);
+    const [page, setPage] = useState(1);
+    const limit = 3;
 
-    const { data: users = [], isLoading, refetch } = useQuery({
-        queryKey: ["user", searchTerm],
+    const { data: usersData, isLoading, refetch } = useQuery({
+        queryKey: ["user", searchTerm, page, limit],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/users?search=${searchTerm}`);
+            const res = await axiosSecure.get(`/users?search=${searchTerm}&page=${page}&limit=${limit}`);
             return res.data
         }
     });
@@ -68,9 +71,11 @@ const UsersTable = () => {
         console.log(e.target.search.value)
     };
 
-    if (isLoading) {
-        return <div className="text-white p-4">Loading users...</div>;
-    }
+    if (isLoading) return <LoadingSpinner />
+
+    const { users, usersCount } = usersData;
+    const totalPage = Math.ceil(usersCount / limit);
+
 
     return (
         <div className="w-full lg:w-4/5 mx-auto p-4">
@@ -84,6 +89,7 @@ const UsersTable = () => {
                 <input type="submit" value="Submit" className='btn btn-neutral text-white' />
             </form>
             <div className="overflow-x-auto">
+
                 <table className="min-w-full bg-gray-800 text-white rounded-lg overflow-hidden">
                     <thead className="bg-gray-900">
                         <tr>
@@ -121,8 +127,25 @@ const UsersTable = () => {
                         ))}
                     </tbody>
                 </table>
+
+                {/* Pagination controls */}
+                <div className="flex justify-center space-x-4 mt-6">
+                    <button
+                        onClick={() => setPage(prev => Math.max(prev - 1, 1))}
+                        disabled={page === 1}
+                        className="btn btn-sm"
+                    >Previous</button>
+                    <span>Page {page} out of {totalPage}</span>
+                    <button
+                        onClick={() => {
+                            setPage(prev => prev + 1);
+                        }}
+                        disabled={page === totalPage}
+                        className="btn btn-sm"
+                    >Next</button>
+                </div>
             </div>
-            {users.length === 0 && (
+            {users?.length === 0 && (
                 <div className="text-gray-400 text-center mt-4">No users found.</div>
             )}
         </div>
