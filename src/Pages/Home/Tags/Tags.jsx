@@ -1,4 +1,6 @@
+import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 // Sample tag list (replace with dynamic data if needed)
 const allTags = [
@@ -8,6 +10,16 @@ const allTags = [
 
 const Tags = () => {
     const navigate = useNavigate();
+    const axiosPublic = useAxiosPublic();
+
+    const { data: allTags } = useQuery({
+        queryKey: ['tag'],
+        queryFn: async () => {
+            const res = await axiosPublic.get("/tags");
+            return res.data
+        }
+    })
+
 
     const handleTagClick = (tag) => {
         // You could navigate to a search route with query params
@@ -22,11 +34,11 @@ const Tags = () => {
                 <div className="flex flex-wrap gap-3">
                     {allTags?.map((tag) => (
                         <button
-                            key={tag}
-                            onClick={() => handleTagClick(tag)}
+                            key={tag._id}
+                            onClick={() => handleTagClick(tag?.tag)}
                             className="bg-white border border-gray-300 text-gray-800 text-sm px-4 py-2 rounded-full hover:bg-indigo-600 hover:text-white transition"
                         >
-                            #{tag}
+                            #{tag?.tag}
                         </button>
                     ))}
                 </div>

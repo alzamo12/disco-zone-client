@@ -19,6 +19,7 @@ import Forbidden from "../Pages/Forbidden/Forbidden";
 import UsersTable from "../Pages/AdminDashboard/UsersTable";
 import MakeAnnouncement from "../Pages/AdminDashboard/MakeAnnouncement/MakeAnnouncement";
 import ReportedComments from "../Pages/AdminDashboard/ReportedComments/ReportedComments";
+import AdminProfile from "../Pages/AdminDashboard/AdminProfile/AdminProfile"
 const router = createBrowserRouter([
   // normale home routes
   {
@@ -84,10 +85,7 @@ const router = createBrowserRouter([
         path: "payment",
         Component: Payment
       },
-      {
-        path: "admin-profile",
-        element: <AdminRoute><div>This is admin</div></AdminRoute>
-      },
+
     ]
   },
   // admin related routes
@@ -106,7 +104,11 @@ const router = createBrowserRouter([
       {
         path: "reported-comments",
         Component: ReportedComments
-      }
+      },
+      {
+        path: "admin-profile",
+        Component: AdminProfile
+      },
     ]
   }
 ]);
