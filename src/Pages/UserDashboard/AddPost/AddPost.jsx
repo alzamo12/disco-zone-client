@@ -2,6 +2,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import Select from 'react-select';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import LoadingSpinner from '../../../components/shared/LoadinSpinner';
@@ -10,6 +11,7 @@ import { motion } from 'framer-motion';
 export default function AddPost() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const axiosPublic = useAxiosPublic();
     const queryClient = useQueryClient();
 
     const { data: count = 0, isLoading } = useQuery({
@@ -17,6 +19,14 @@ export default function AddPost() {
         queryFn: () => axiosSecure.get(`/posts/count/${user.email}`)
             .then(res => res.data.count),
     });
+    const { data: tags, isLoading: tagsLoading } = useQuery({
+        queryKey: ['tags'],
+        queryFn: async () => {
+            const res = await axiosPublic.get("/tags");
+            console.log(res.data)
+            return res.data
+        }
+    })
 
     const mutation = useMutation({
         mutationFn: postData => axiosSecure.post('/posts', postData),
@@ -48,7 +58,7 @@ export default function AddPost() {
         }
     });
 
-    if (isLoading) return <LoadingSpinner />;
+    if (isLoading || tagsLoading) return <LoadingSpinner />;
 
     if (count >= 5) {
         return (
@@ -138,11 +148,17 @@ export default function AddPost() {
                             <motion.div whileHover={{ scale: 1.02 }}>
                                 <Select
                                     {...field}
-                                    options={[
-                                        { value: 'JavaScript', label: 'JavaScript' },
-                                        { value: 'React', label: 'React' },
-                                        // ...other tags
-                                    ]}
+                                    // options={[
+                                    //     tags.map(tag => ({
+                                    //         value: tag,
+                                    //         label: tag
+                                    //     }))
+                                    //     // ...other tags
+                                    // ]}
+                                    options={tags.map(tag => ({
+                                        value: tag?.tag,   // what gets submitted
+                                        label: tag?.tag    // what the user sees
+                                    }))}
                                     placeholder="Select a tag"
                                     theme={theme => ({
                                         ...theme,
