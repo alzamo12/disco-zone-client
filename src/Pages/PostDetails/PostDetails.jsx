@@ -1,6 +1,6 @@
 // PostDetails.jsx
-import {  useState } from 'react';
-import { useParams } from 'react-router';
+import { useState } from 'react';
+import { data, useParams } from 'react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { FacebookShareButton, FacebookIcon, EmailShareButton, EmailIcon } from 'react-share';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
@@ -9,17 +9,15 @@ import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
-import {
-  FacebookMessengerShareButton,
-  FacebookMessengerIcon
-} from 'react-share';
+import LoadingSpinner from '../../components/shared/LoadinSpinner';
+
 
 export default function PostDetails() {
   const { id } = useParams();
+  const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const axiosPublic = useAxiosPublic();
   const queryClient = useQueryClient();
-  const { user } = useAuth();
   const [commentText, setCommentText] = useState('');
 
   const shareUrl = typeof window !== 'undefined'
@@ -30,13 +28,14 @@ export default function PostDetails() {
   const { data: post, isLoading } = useQuery({
     queryKey: ['postDetails', id],
     queryFn: async () => {
+      console.log(id)
       const res = await axiosPublic.get(`/post/${id}`);
       return res.data;
     },
   });
 
   // Fetch comments
-  const { data: comments = [] } = useQuery({
+  const { data: { comments } = [], isLoading: commentsLoading } = useQuery({
     queryKey: ['comments', id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/comments/${id}`);
@@ -44,19 +43,37 @@ export default function PostDetails() {
     },
   });
 
+  const { mutateAsync: commentsCountAsync } = useMutation({
+    mutationFn: async (data) => {
+      const res = await axiosSecure.put(`/post/${id}`, data);
+      return res.data
+    },
+    onSuccess: async (data) => {
+      console.log(data)
+      if (data?.modifiedCount > 0) {
+        console.log(data)
+        toast.success('Comment added!');
+
+      }
+    }
+  })
   // Post a comment
   const commentMutation = useMutation({
     mutationFn: comment => axiosSecure.post('/comments', comment),
     onSuccess: () => {
       queryClient.invalidateQueries(['comments', id]);
       setCommentText('');
-      toast.success('Comment added!');
+      const data = { commentsCount: post.commentsCount ? post.commentsCount + 1 : 1 };
+      commentsCountAsync(data)
     },
   });
 
   // Up/down vote
   const voteMutation = useMutation({
-    mutationFn: ({ type }) => axiosSecure.put(`/post/vote/${id}`, { type }),
+    mutationFn: async ({ type }) => {
+      const res = await axiosSecure.put(`/post/vote/${id}`, { type });
+      return res.data
+    },
     onSuccess: () => {
       queryClient.invalidateQueries(['postDetails', id]);
     },
@@ -83,16 +100,8 @@ export default function PostDetails() {
 
 
 
-  if (isLoading || !post) {
-    return (
-      <motion.div
-        className="flex items-center justify-center h-screen bg-gray-900"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-      >
-        <p className="text-gray-300">Loading post...</p>
-      </motion.div>
-    );
+  if (isLoading || commentsLoading || !post) {
+    return <LoadingSpinner />
   };
 
   const emailSubject = `Check out this post: ${post.title}`;
@@ -183,7 +192,7 @@ export default function PostDetails() {
                 <FacebookShareButton url={shareUrl}>
                   <FacebookIcon size={32} round />
                 </FacebookShareButton>
-                {/* new Messenger Share */}
+
                 <EmailShareButton url={shareUrl}
                   subject={emailSubject}
                   body={emailBody}

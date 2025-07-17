@@ -1,9 +1,9 @@
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { showReportSuccess } from '../../../utils/alerts/ShowRepotSuccess';
-import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import WhiteSpinner from '../../../components/shared/WhiteSpinner';
 
 const ReportedComments = () => {
     const axiosSecure = useAxiosSecure();
@@ -36,7 +36,7 @@ const ReportedComments = () => {
         },
     });
 
-    if (isLoading) return <LoadingSpinner />;
+    if (isLoading) return <WhiteSpinner />;
 
     const { comments = [], commentsCount = 0 } = commentsData;
     const totalPages = Math.ceil(commentsCount / limit);

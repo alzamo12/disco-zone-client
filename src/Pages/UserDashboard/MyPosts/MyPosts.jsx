@@ -4,10 +4,10 @@ import Swal from 'sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 import { Link } from 'react-router';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import WhiteSpinner from '../../../components/shared/WhiteSpinner';
 
 const MyPosts = () => {
   const { user } = useAuth();
@@ -46,10 +46,10 @@ const MyPosts = () => {
     }
   });
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <WhiteSpinner />;
 
   return (
-    <div className="max-w-4xl mx-auto my-12 px-4">
+    <div className="w-screen md:max-w-4xl mx-auto my-12 md:px-4 lg:px-4">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,8 +59,8 @@ const MyPosts = () => {
         My Posts
       </motion.h2>
 
-      <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden">
-        <table className="min-w-full text-white">
+      <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden min-w-full">
+        <table className="min-w-full lg:w-1/3 xl:min-w-full text-white">
           <thead className="bg-gray-800">
             <tr>
               {['Title', 'Votes', 'Comments', 'Actions'].map(col => (

@@ -2,12 +2,6 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate } from "react-router";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
-// Sample tag list (replace with dynamic data if needed)
-const allTags = [
-    "JavaScript", "React", "Node.js", "MongoDB", "Tailwind",
-    "Next.js", "Authentication", "Design", "Performance", "UI/UX",
-];
-
 const Tags = () => {
     const navigate = useNavigate();
     const axiosPublic = useAxiosPublic();
@@ -22,7 +16,6 @@ const Tags = () => {
 
 
     const handleTagClick = (tag) => {
-        // You could navigate to a search route with query params
         navigate(`/search?tag=${encodeURIComponent(tag)}`);
     };
 

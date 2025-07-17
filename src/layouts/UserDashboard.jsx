@@ -44,7 +44,7 @@ const UserDashboard = () => {
                 </div>
 
                 {/* your actual page content */}
-                <div className="p-6 flex-1">
+                <div className="lg:p-6 flex-1">
                     <Outlet />
                 </div>
             </div>

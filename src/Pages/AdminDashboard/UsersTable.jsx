@@ -4,8 +4,8 @@ import useAxiosSecure from '../../hooks/useAxiosSecure';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import LoadingSpinner from '../../components/shared/LoadinSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
+import WhiteSpinner from '../../components/shared/WhiteSpinner';
 
 const UsersTable = () => {
   const axiosSecure = useAxiosSecure();
@@ -60,7 +60,7 @@ const UsersTable = () => {
     setPage(1);
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (isLoading) return <WhiteSpinner />;
 
   const { users = [], usersCount = 0 } = usersData;
   const totalPage = Math.ceil(usersCount / limit);

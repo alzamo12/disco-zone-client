@@ -5,8 +5,8 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recha
 import { motion } from 'framer-motion';
 import useAxiosSecure from "../../../hooks/useAxiosSecure"
 import useAuth from '../../../hooks/useAuth';
-import LoadingSpinner from "../../../components/shared/LoadinSpinner"
 import { showReportSuccess } from '../../../utils/alerts/ShowRepotSuccess';
+import WhiteSpinner from '../../../components/shared/WhiteSpinner';
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658'];
 
 const AdminDashboard = () => {
@@ -14,7 +14,7 @@ const AdminDashboard = () => {
     const queryClient = useQueryClient();
     const [newTag, setNewTag] = useState('');
     const axiosSecure = useAxiosSecure();
-    // Fetch admin stats and profile
+
     const { data: stats, isLoading } = useQuery(
         {
             queryKey: ["admin-stat"],
@@ -25,7 +25,6 @@ const AdminDashboard = () => {
         }
     );
 
-    // Mutation to add a tag
     const addTagMutation = useMutation(
         {
             mutationFn: async (tag) => {
@@ -44,10 +43,9 @@ const AdminDashboard = () => {
     );
 
     if (isLoading) {
-        return <LoadingSpinner />
+        return <WhiteSpinner />
     }
 
-    // const { profile, stats } = dashboard;
     const pieData = [
         { name: 'Posts', value: stats.postsCount },
         { name: 'Comments', value: stats.commentsCount },
@@ -55,9 +53,9 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="flex bg-gray-900 min-h-[90vh] text-white">
+        <div className="flex flex-col gap-4 lg:flex-row bg-gray-900 min-h-full text-white">
             {/* Sidebar */}
-            <aside className="hidden lg:block lg:w-1/4 bg-gray-800 p-6">
+            <aside className="rounded-3xl lg:rounded-none lg:block lg:w-1/4 bg-gray-800 p-6">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -86,7 +84,7 @@ const AdminDashboard = () => {
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-6 lg:w-3/4 md:w-full sm:w-full">
+            <main className="flex-1 lg:p-6 lg:w-3/4 md:w-full sm:w-full">
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -144,9 +142,6 @@ const AdminDashboard = () => {
                         </form>
                     </div>
                 </motion.div>
-
-                {/* Nested routes */}
-                <Outlet />
             </main>
         </div>
     );

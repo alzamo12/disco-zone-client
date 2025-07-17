@@ -3,19 +3,21 @@ import useAuth from "./useAuth";
 import { useNavigate } from "react-router";
 
 const axiosSecure = axios.create({
-    // baseURL: "http://localhost:5000"
-    baseURL: "https://disco-zone-server.vercel.app"
+    baseURL: "http://localhost:5000"
+    // baseURL: "https://disco-zone-server.vercel.app"
 })
 const useAxiosSecure = () => {
-    const { user, logout } = useAuth();
+    const { user, logout, isLoading } = useAuth();
     const navigate = useNavigate();
     // console.log("this is outside interceptor", user.accessToken)
 
+    if(isLoading || !user) return;
+
+    // console.log('secure axios', user.email)
     // add a request interceptors
     axiosSecure.interceptors.request.use(
         function (config) {
             const accessToken = user?.accessToken;
-            // console.log('this is inside interceptors',accessToken)
             config.headers.authorization = `Bearer ${accessToken}`
             return config;
         },

@@ -5,8 +5,8 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAxiosPublic from '../../../hooks/useAxiosPublic';
 import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
-import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 import { motion } from 'framer-motion';
+import WhiteSpinner from '../../../components/shared/WhiteSpinner';
 
 export default function AddPost() {
     const { user } = useAuth();
@@ -16,14 +16,15 @@ export default function AddPost() {
 
     const { data: count = 0, isLoading } = useQuery({
         queryKey: ['postCount', user?.email],
-        queryFn: () => axiosSecure.get(`/posts/count/${user.email}`)
-            .then(res => res.data.count),
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/posts/count/${user?.email}`);
+            return res.data.count
+        }
     });
     const { data: tags, isLoading: tagsLoading } = useQuery({
         queryKey: ['tags'],
         queryFn: async () => {
             const res = await axiosPublic.get("/tags");
-            console.log(res.data)
             return res.data
         }
     })
@@ -58,7 +59,7 @@ export default function AddPost() {
         }
     });
 
-    if (isLoading || tagsLoading) return <LoadingSpinner />;
+    if (isLoading || tagsLoading) return <WhiteSpinner />;
 
     if (count >= 5) {
         return (
@@ -148,16 +149,9 @@ export default function AddPost() {
                             <motion.div whileHover={{ scale: 1.02 }}>
                                 <Select
                                     {...field}
-                                    // options={[
-                                    //     tags.map(tag => ({
-                                    //         value: tag,
-                                    //         label: tag
-                                    //     }))
-                                    //     // ...other tags
-                                    // ]}
                                     options={tags.map(tag => ({
-                                        value: tag?.tag,   // what gets submitted
-                                        label: tag?.tag    // what the user sees
+                                        value: tag?.tag,
+                                        label: tag?.tag
                                     }))}
                                     placeholder="Select a tag"
                                     theme={theme => ({

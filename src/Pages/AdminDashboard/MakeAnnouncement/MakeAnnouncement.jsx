@@ -28,12 +28,12 @@ const MakeAnnouncement = () => {
     };
 
     return (
-        <div className="flex justify-center items-start my-12 px-4">
+        <div className="flex justify-center items-start my-12 px-2">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="w-full max-w-2xl bg-gray-900 rounded-2xl shadow-xl p-8"
+                className="w-full max-w-2xl bg-gray-900 rounded-2xl shadow-xl p-4 lg:p-8"
             >
                 <h2 className="text-3xl font-semibold text-center text-white mb-6">
                     Make Announcement

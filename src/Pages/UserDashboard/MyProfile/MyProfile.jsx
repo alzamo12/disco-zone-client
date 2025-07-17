@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
-import LoadingSpinner from '../../../components/shared/LoadinSpinner';
 import { motion, AnimatePresence } from 'framer-motion';
+import WhiteSpinner from '../../../components/shared/WhiteSpinner';
 
 const MyProfile = () => {
     const axiosSecure = useAxiosSecure();
@@ -12,20 +12,23 @@ const MyProfile = () => {
     // Fetch profile data
     const { data: profile, isLoading: loadingProfile } = useQuery({
         queryKey: ['profile', email],
-        queryFn: () => axiosSecure.get(`/user/${email}`).then(res => res.data),
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/user/${email}`);
+            return res.data
+        },
     });
 
     // Fetch recent posts
     const { data: posts = [], isLoading: loadingPosts } = useQuery({
         queryKey: ['recentPosts', email],
-        queryFn: () =>
-            axiosSecure
-                .get(`/posts?email=${email}&sort=-createdAt&limit=3`)
-                .then(res => res.data),
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/posts?email=${email}&sort=-createdAt&limit=3`);
+            return res.data
+        }
     });
 
     if (loadingProfile || loadingPosts) {
-        return <LoadingSpinner />;
+        return <WhiteSpinner />;
     }
 
     return (
@@ -33,7 +36,7 @@ const MyProfile = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.4 }}
-            className="flex justify-center py-12 bg-gray-900 min-h-screen"
+            className="flex justify-center py-12 bg-gray-900 min-h-screen mx-2"
         >
             <div className="w-full max-w-3xl bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-8">
                 {/* Profile Header */}
@@ -41,7 +44,7 @@ const MyProfile = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.4 }}
-                    className="flex items-center space-x-4"
+                    className="flex items-center space-x-2 md:space-x-4"
                 >
                     <img
                         src={user?.photoURL}
@@ -59,7 +62,7 @@ const MyProfile = () => {
                                 : 'bg-amber-700 text-white'
                                 }`}
                         >
-                            {profile?.badge === 'gold' ? 'Gold Member' : 'Bronze Member'}
+                            {profile?.badge === 'gold' ? 'Gold' : 'Bronze'}
                         </span>
                     </div>
                 </motion.div>

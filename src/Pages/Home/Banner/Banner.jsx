@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
-import bgImage from '../../../assets/banner1.png';  // ensure you have a banner background image
+import bgImage from '../../../assets/banner1.png';  
 
 export default function Banner({handleSubmit}) {
     const [query, setQuery] = useState('');   
@@ -14,7 +14,6 @@ export default function Banner({handleSubmit}) {
     mr-[-50vw]"
             style={{ backgroundImage: `url(${bgImage})` }}
         >
-            {/* Overlay for readability */}
             <div className="hero-overlay opacity-50"></div>
 
             <div className="relative max-w-6xl mx-auto px-4 py-20 sm:py-24 lg:py-40">
