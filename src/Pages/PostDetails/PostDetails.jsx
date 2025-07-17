@@ -1,6 +1,6 @@
 // PostDetails.jsx
 import { useState } from 'react';
-import { data, useParams } from 'react-router';
+import {  useParams } from 'react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { FacebookShareButton, FacebookIcon, EmailShareButton, EmailIcon } from 'react-share';
 import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
@@ -39,7 +39,7 @@ export default function PostDetails() {
     queryKey: ['comments', id],
     queryFn: async () => {
       const res = await axiosSecure.get(`/comments/${id}`);
-      return res.data;
+      return res.data
     },
   });
 
@@ -63,7 +63,7 @@ export default function PostDetails() {
     onSuccess: () => {
       queryClient.invalidateQueries(['comments', id]);
       setCommentText('');
-      const data = { commentsCount: post.commentsCount ? post.commentsCount + 1 : 1 };
+      const data = { commentsCount: post.commentsCount ? parseInt(post.commentsCount) + 1 : 1 };
       commentsCountAsync(data)
     },
   });
