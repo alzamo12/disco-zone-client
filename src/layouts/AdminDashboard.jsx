@@ -5,36 +5,7 @@ import AdminDashboardNavbar from '../Pages/UserDashboard/components/AdminDashboa
 
 
 const UserDashboard = () => {
-    // console.log(role)
     return (
-        // <div className='w-full flex flex-col lg:flex-row'>
-        //     <Toaster />
-        //     <div className="drawer lg:drawer-open lg:w-1/4">
-        //         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-        //         <UserDashboardNavbar />
-        //         <div className="drawer-side overflow-y-hidden w-full">
-        //             <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-        //                 <AdminDashboardNavbar />
-        //         </div>
-        //     </div>
-        //     {/* outlet */}
-        //     <div className='w-full'>
-        //         <Outlet />
-        //     </div>
-        // </div>
-        // <div className="w-full flex flex-col lg:flex-row min-h-screen">
-        //     <Toaster />
-
-        //     {/* Sidebar: 25% width on lg+, full width on md/sm */}
-        //     <div className="w-full lg:w-1/6 flex-none bg-neutral-800">
-        //         <AdminDashboardNavbar />
-        //     </div>
-
-        //     {/* Main content: fills remaining space */}
-        //     <div className="w-full lg:flex-1 bg-neutral-900 p-6">
-        //         <Outlet />
-        //     </div>
-        // </div>
         <div className="drawer lg:drawer-open min-h-screen bg-neutral-900 text-white">
             <Toaster />
 
@@ -55,7 +26,6 @@ const UserDashboard = () => {
                     <span className="text-xl font-bold">Dashboard</span>
                 </div>
 
-                {/* your actual page content */}
                 <div className="p-6 flex-1">
                     <Outlet />
                 </div>

@@ -14,6 +14,7 @@ const MyProfile = () => {
         queryKey: ['profile', email],
         queryFn: async () => {
             const res = await axiosSecure.get(`/user/${email}`);
+            console.log(res.data)
             return res.data
         },
     });
@@ -72,12 +73,12 @@ const MyProfile = () => {
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.4 }}
-                    className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+                    className="grid grid-cols-1 sm:grid-cols-2 gap-4"
                 >
                     {[
                         { label: 'Posts', value: profile?.postsCount },
                         { label: 'Comments', value: profile?.commentsCount },
-                        { label: 'Users', value: profile?.usersCount },
+                        // { label: 'Users', value: profile?.usersCount },
                     ].map((stat) => (
                         <div
                             key={stat.label}

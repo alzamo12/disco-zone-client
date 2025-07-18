@@ -9,22 +9,31 @@ const useCreateUser = ({ from = "/" }) => {
     const navigate = useNavigate();
 
     const mutation = useMutation({
-        mutationFn: async ({userData}) => {
+        mutationFn: async ({ userData }) => {
             const res = await axiosPublic.post('/user', userData);
-            return res
+            return res;
         },
         onSuccess: (res, variables) => {
-            if (res.status === 201) {
+            if (res.data.insertedId) {
                 toast.dismiss(variables.toastId)
-                console.log(res.data)
                 navigate(from)
                 Swal.fire({
                     title: "You have Signed Up successfully",
                     icon: "success",
                     draggable: true
                 });
+            } else {
+                navigate(from)
+                Swal.fire({
+                    title: "You have Signed In successfully",
+                    icon: "success",
+                    draggable: true
+                });
             }
         },
+        onError: (err) => {
+            console.log(err)
+        }
     });
 
     return mutation;

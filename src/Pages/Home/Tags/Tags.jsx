@@ -20,8 +20,8 @@ const Tags = () => {
     };
 
     return (
-        <section className="bg-neutral-800 py-10 px-4 rounded-xl  lg:rounded-full">
-            <div className="max-w-6xl mx-auto">
+        <section className="bg-neutral-800 py-10 px-4 mx-2 md:px-8 rounded-xl max-w-5xl md:mx-auto">
+            <div className="w-full mx-auto">
                 <h2 className="text-3xl font-bold mb-6 text-white">Browse by Tag</h2>
 
                 <div className="flex flex-wrap gap-3">

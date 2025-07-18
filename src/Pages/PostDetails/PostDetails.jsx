@@ -42,29 +42,13 @@ export default function PostDetails() {
       return res.data
     },
   });
-
-  const { mutateAsync: commentsCountAsync } = useMutation({
-    mutationFn: async (data) => {
-      const res = await axiosSecure.put(`/post/${id}`, data);
-      return res.data
-    },
-    onSuccess: async (data) => {
-      console.log(data)
-      if (data?.modifiedCount > 0) {
-        console.log(data)
-        toast.success('Comment added!');
-
-      }
-    }
-  })
   // Post a comment
   const commentMutation = useMutation({
     mutationFn: comment => axiosSecure.post('/comments', comment),
     onSuccess: () => {
       queryClient.invalidateQueries(['comments', id]);
       setCommentText('');
-      const data = { commentsCount: post.commentsCount ? parseInt(post.commentsCount) + 1 : 1 };
-      commentsCountAsync(data)
+      toast.success("Comment has successfully submitted")
     },
   });
 

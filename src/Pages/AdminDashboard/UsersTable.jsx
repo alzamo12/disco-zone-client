@@ -37,8 +37,8 @@ const UsersTable = () => {
       cancelButtonText: 'No, keep user',
       customClass: {
         popup: 'p-6 rounded-2xl shadow-lg',
-        confirmButton: 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500',
-        cancelButton: 'bg-gray-700 hover:bg-gray-600',
+        confirmButton: 'bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 btn mr-1',
+        cancelButton: 'bg-gray-700 hover:bg-gray-600 btn',
       },
       buttonsStyling: false,
       showClass: { popup: 'animate__animated animate__zoomIn' },

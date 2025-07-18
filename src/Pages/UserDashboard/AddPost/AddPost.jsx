@@ -7,12 +7,13 @@ import useAuth from '../../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { motion } from 'framer-motion';
 import WhiteSpinner from '../../../components/shared/WhiteSpinner';
-
+import useUserRole from "../../../hooks/useUserRole"
 export default function AddPost() {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const axiosPublic = useAxiosPublic();
     const queryClient = useQueryClient();
+    const { badge } = useUserRole()
 
     const { data: count = 0, isLoading } = useQuery({
         queryKey: ['postCount', user?.email],
@@ -61,7 +62,7 @@ export default function AddPost() {
 
     if (isLoading || tagsLoading) return <WhiteSpinner />;
 
-    if (count >= 5) {
+    if (count >= 5 && badge !== 'gold') {
         return (
             <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900 text-white p-4">
                 <motion.div

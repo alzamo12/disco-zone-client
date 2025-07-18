@@ -21,12 +21,13 @@ const Comments = () => {
     const commentsPerPage = 10;
 
     const { data: commentsData, isLoading } = useQuery({
-        queryKey: ['commentsList', postId],
+        queryKey: ['commentsList', postId, commentsPerPage, currentPage],
         queryFn: async () => {
             const res = await axiosSecure.get(`/comments/${postId}?limit=${commentsPerPage}&page=${currentPage}`);
-            console.log(res.data)
+            // console.log(res.data)
             return res.data;
         },
+        keepPreviousData: true,
     });
 
     const { mutateAsync } = useMutation({
@@ -80,7 +81,6 @@ const Comments = () => {
     if (isLoading) return <LoadingSpinner />;
     const { comments, commentsCount } = commentsData;
     const totalPages = Math.ceil(commentsCount / commentsPerPage);
-    const paginatedComments = comments?.slice((currentPage - 1) * commentsPerPage, currentPage * commentsPerPage);
 
     return (
         <motion.div
@@ -105,7 +105,7 @@ const Comments = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {paginatedComments.map((comment) => (
+                        {comments.map((comment) => (
                             <motion.tr
                                 key={comment._id}
                                 className="border-b border-slate-600 hover:bg-slate-700"

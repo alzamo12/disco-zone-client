@@ -1,10 +1,10 @@
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useCreateUser from "../../hooks/useCreateUser";
 
 const SocialLogin = () => {
     const { googleLogin } = useAuth();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from || "/";
     const { mutate } = useCreateUser(from);
@@ -14,12 +14,11 @@ const SocialLogin = () => {
             .then((result) => {
                 const user = result?.user;
                 const userData = {
-                    name: user?.name,
+                    name: user?.displayName,
                     email: user?.email,
                     photoURL: user?.photoURL
                 };
-                navigate(from)
-                mutate(userData)
+                mutate({userData})
             })
             .catch(err => {
                 console.error(err)

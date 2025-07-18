@@ -43,7 +43,6 @@ const UserDashboard = () => {
                     <span className="text-xl font-bold">Dashboard</span>
                 </div>
 
-                {/* your actual page content */}
                 <div className="lg:p-6 flex-1">
                     <Outlet />
                 </div>

@@ -20,6 +20,7 @@ import UsersTable from "../Pages/AdminDashboard/UsersTable";
 import MakeAnnouncement from "../Pages/AdminDashboard/MakeAnnouncement/MakeAnnouncement";
 import ReportedComments from "../Pages/AdminDashboard/ReportedComments/ReportedComments";
 import AdminProfile from "../Pages/AdminDashboard/AdminProfile/AdminProfile"
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 const router = createBrowserRouter([
   // normale home routes
   {
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
         Component: AdminProfile
       },
     ]
+  },
+  {
+    path: "*",
+    Component: ErrorPage
   }
 ]);
 

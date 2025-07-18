@@ -22,7 +22,7 @@ const MyPosts = () => {
     keepPreviousData: true,
     queryFn: async () => {
       const res = await axiosSecure.get(
-        `/posts?email=${user.email}&sort=-createdAt&page=${page}&limit=${limit}`
+        `/posts/${user.email}?sort=-createdAt&page=${page}&limit=${limit}`
       );
       return res.data;
     }

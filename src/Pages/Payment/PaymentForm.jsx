@@ -29,17 +29,20 @@ const PaymentForm = () => {
     const { user } = useAuth();
 
     const mutation = useMutation({
-        mutationFn: async (updateUser) => {
+        mutationFn: async ({ updateUser, toastId }) => {
             const res = await axiosSecure.put(`/user/${user?.email}`, updateUser);
             return res.data
         },
-        onSuccess: () => {
+        onSuccess: (data, variables) => {
+            toast.dismiss(variables.toastId)
             toast.success("You have become a gold member")
+            // console.log(variables)
         }
     })
 
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const toastId = toast.loading("Payment is Processing");
         if (!stripe || !elements) {
             return;
         };
@@ -86,7 +89,7 @@ const PaymentForm = () => {
                 const updateUser = {
                     badge: "gold"
                 }
-                mutation.mutate(updateUser)
+                mutation.mutate({ updateUser, toastId })
             }
         }
     }
