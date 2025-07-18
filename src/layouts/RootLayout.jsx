@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router';
 import Navbar from '../Pages/Shared/Navbar/Navbar';
 import { Toaster } from 'react-hot-toast';
+import Footer from '../Pages/Shared/Footer/Footer';
 
 const RootLayout = () => {
     return (
@@ -12,6 +13,9 @@ const RootLayout = () => {
             </div>
             <div className='my-28'>
                 <Outlet />
+            </div>
+            <div className="">
+                <Footer />
             </div>
         </div>
     );

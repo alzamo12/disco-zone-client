@@ -9,19 +9,18 @@ import useAxiosPublic from '../../../hooks/useAxiosPublic';
 
 export default function Navbar() {
     const [mobileOpen, setMobileOpen] = useState(false);
-    const {user, logout} = useAuth();
+    const { user, logout } = useAuth();
     const axiosPublic = useAxiosPublic();
-    const {role} =  useUserRole();
-    console.log('from navbar user role is',role)
+    const { role } = useUserRole();
+    console.log('from navbar user role is', role)
 
-     const {data: announcements} = useQuery({
-            queryKey: ['announcementCount'],
-            queryFn: async() => {
-                const res = await axiosPublic.get("/announcement-count");
-                // console.log('this is announcement',res.data)
-                return res.data
-            }
-            })
+    const { data: announcements } = useQuery({
+        queryKey: ['announcementCount'],
+        queryFn: async () => {
+            const res = await axiosPublic.get("/announcement-count");
+            return res.data
+        }
+    })
 
     return (
         // Sticky full-width navbar
@@ -182,32 +181,12 @@ export default function Navbar() {
                         >
                             Membership
                         </NavLink>
-                        {/* Notifications removed from mobile dropdown */}
-                        {user ? (
-                            <>
-                                <div className="border-t border-gray-200"></div>
-                                <div className="px-4 py-2 text-gray-700">{user.displayName}</div>
-                                <NavLink
-                                    to="/dashboard"
-                                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                >
-                                    Dashboard
-                                </NavLink>
-                                <button
-                                    onClick={logout}
-                                    className="w-full text-left block px-4 py-2 text-red-600 hover:bg-gray-100"
-                                >
-                                    Logout
-                                </button>
-                            </>
-                        ) : (
-                            <NavLink
-                                to="/login"
-                                className="block px-4 py-2 bg-indigo-600 text-white text-center rounded-md mx-4 hover:bg-indigo-700"
-                            >
-                                Join US
-                            </NavLink>
-                        )}
+                        <NavLink
+                            to="/dashboard"
+                            className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
+                        >
+                            Dashboard
+                        </NavLink>                       
                     </div>
                 </div>
             )}

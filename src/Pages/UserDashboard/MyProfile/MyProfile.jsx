@@ -44,18 +44,18 @@ const MyProfile = () => {
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.4 }}
-                    className="flex items-center space-x-2 md:space-x-4"
+                    className="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 space-x-2 md:space-x-4"
                 >
                     <img
                         src={user?.photoURL}
                         alt="avatar"
                         className="h-20 w-20 rounded-full object-cover border-4 border-indigo-600"
                     />
-                    <div>
+                    <div className='text-center'>
                         <h1 className="text-3xl font-bold text-white">{user?.displayName}</h1>
                         <p className="text-gray-400">{email}</p>
                     </div>
-                    <div className="ml-auto">
+                    <div className="mx-auto ">
                         <span
                             className={`px-3 py-1 rounded-full text-sm font-semibold ${profile?.badge === 'gold'
                                 ? 'bg-yellow-500 text-gray-900'

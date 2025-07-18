@@ -114,7 +114,7 @@ const MyPosts = () => {
                         }
                         className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-red-600 to-pink-600 rounded-full text-sm font-medium text-white"
                       >
-                        <FaTrash className="mr-1" /> Delete
+                        <FaTrash className="mr-1" />
                       </motion.button>
                     </td>
                   </motion.tr>
