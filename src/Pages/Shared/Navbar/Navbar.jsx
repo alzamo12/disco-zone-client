@@ -57,7 +57,7 @@ export default function Navbar() {
                                 Membership
                             </NavLink>
                             <NavLink
-                                to="/dashboard"
+                                to="/dashboard/my-profile"
                                 className={({ isActive }) =>
                                     `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
@@ -106,7 +106,7 @@ export default function Navbar() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <NavLink
-                                                        to={role === 'admin' ? "/admin-dashboard" : "/dashboard"}
+                                                        to={role === 'admin' ? "/admin-dashboard/admin-profile" : "/dashboard/my-profile"}
                                                         className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''}`}
                                                     >
                                                         Dashboard

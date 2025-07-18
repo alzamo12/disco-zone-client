@@ -10,7 +10,7 @@ const AdminDashboardNavbar = () => {
             {/* Sidebar content here */}
             <NavLogo />
             <ul className='space-y-3'>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
+                {/* <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
                     <NavLink to="/dashboard" end>
                         {
                             ({ isActive }) => (
@@ -22,7 +22,7 @@ const AdminDashboardNavbar = () => {
                                 </div>
                             )
                         }
-                    </NavLink></li>
+                    </NavLink></li> */}
                 <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
                     <NavLink to="/admin-dashboard/admin-profile">
                         {

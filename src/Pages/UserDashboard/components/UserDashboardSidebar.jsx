@@ -12,13 +12,25 @@ const UserDashboardSidebar = () => {
             {/* Sidebar content here */}
             <NavLogo />
             <ul className='space-y-3'>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard" end>
+                {/* <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard" end>
                     {
                         ({ isActive }) => (
                             <div>
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive ? 'bg-neutral-700' : ''}`}>
                                     {isActive ? <MdDashboard /> : <MdOutlineDashboard />}
                                     <span>Dashboard</span>
+                                </div>
+                            </div>
+                        )
+                    }
+                </NavLink></li> */}
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/my-profile">
+                    {
+                        ({ isActive }) => (
+                            <div>
+                                <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
+                                    {isActive ? <FaUser className='text-white' /> : <FaRegUser />}
+                                    <span>My Profile</span>
                                 </div>
                             </div>
                         )
@@ -43,30 +55,6 @@ const UserDashboardSidebar = () => {
                                 <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                     {isActive ? <FaNewspaper className='text-white' /> : <FaRegNewspaper />}
                                     <span>My Post</span>
-                                </div>
-                            </div>
-                        )
-                    }
-                </NavLink></li>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/my-profile">
-                    {
-                        ({ isActive }) => (
-                            <div>
-                                <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
-                                    {isActive ? <FaUser className='text-white' /> : <FaRegUser />}
-                                    <span>My Profile</span>
-                                </div>
-                            </div>
-                        )
-                    }
-                </NavLink></li>
-                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'><NavLink to="/dashboard/payment">
-                    {
-                        ({ isActive }) => (
-                            <div>
-                                <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
-                                    {isActive ? <FaUser className='text-white' /> : <FaRegUser />}
-                                    <span>Payment</span>
                                 </div>
                             </div>
                         )

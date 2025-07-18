@@ -11,9 +11,9 @@ const useAxiosSecure = () => {
     const navigate = useNavigate();
     // console.log("this is outside interceptor", user.accessToken)
 
-    if(isLoading || !user) return;
+    if (isLoading || !user) return;
 
-    // console.log('secure axios', user.email)
+    console.log('secure axios', user.email)
     // add a request interceptors
     axiosSecure.interceptors.request.use(
         function (config) {
@@ -34,6 +34,7 @@ const useAxiosSecure = () => {
         async (error) => {
             const status = error?.response?.status;
             if (status === 401 || status === 403) {
+                console.log(status)
                 await logout()
                 navigate("/login")
             }

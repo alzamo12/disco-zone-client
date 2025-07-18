@@ -17,7 +17,7 @@ const Footer = () => {
                     </div>
 
                     {/* Navigation Links */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mx-auto">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mx-auto w-full justify-between">
                         <div className='flex flex-col'>
                             <span className="footer-title text-gray-300">Product</span>
                             <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Features</a>
@@ -38,7 +38,7 @@ const Footer = () => {
                         </div>
                         <div>
                             <span className="footer-title text-gray-300">Follow Us</span>
-                            <div className="flex space-x-4 mt-2">
+                            <div className="grid grid-cols-2 gap-4 mt-2">
                                 {[
                                     { icon: <FaFacebookF />, href: '#' },
                                     { icon: <FaTwitter />, href: '#' },
@@ -48,9 +48,9 @@ const Footer = () => {
                                     <a
                                         key={idx}
                                         href={item.href}
-                                        className="p-2 rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 transition-transform transform hover:scale-110"
+                                        className="p-2 w-8 h-8 rounded-full bg-gray-800 hover:bg-gradient-to-r hover:from-purple-600 hover:to-indigo-600 transition-transform transform hover:scale-110 flex justify-center items-center"
                                     >
-                                        <span className="text-white text-lg">{item.icon}</span>
+                                        <span className="text-white text-lg mx-auto">{item.icon}</span>
                                     </a>
                                 ))}
                             </div>
