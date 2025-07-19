@@ -37,6 +37,9 @@ const PaymentForm = () => {
             toast.dismiss(variables.toastId)
             toast.success("You have become a gold member")
             // console.log(variables)
+        },
+        onError: (err, variables) => {
+            toast.dismiss(variables.toastId)
         }
     })
 
@@ -44,12 +47,12 @@ const PaymentForm = () => {
         e.preventDefault()
         const toastId = toast.loading("Payment is Processing");
         if (!stripe || !elements) {
-            return;
+            return toast.dismiss(toastId)
         };
 
         const card = elements.getElement(CardElement);
         if (!card) {
-            return;
+            return toast.dismiss(toastId)
         }
 
         const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -59,6 +62,7 @@ const PaymentForm = () => {
 
         if (error) {
             console.log(error)
+            toast.dismiss(toastId)
             setError(error.message)
         }
         else {
@@ -81,6 +85,7 @@ const PaymentForm = () => {
         });
 
         if (result.error) {
+            toast.dismiss(toastId)
             console.log("result error", result.error)
         }
         else {

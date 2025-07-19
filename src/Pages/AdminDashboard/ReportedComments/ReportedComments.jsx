@@ -4,6 +4,7 @@ import { showReportSuccess } from '../../../utils/alerts/ShowRepotSuccess';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WhiteSpinner from '../../../components/shared/WhiteSpinner';
+import ReportedComment from './ReporetedComment';
 
 const ReportedComments = () => {
     const axiosSecure = useAxiosSecure();
@@ -32,7 +33,7 @@ const ReportedComments = () => {
         mutationFn: (id) => axiosSecure.put(`/comment/dismiss-report/${id}`).then(r => r.data),
         onSuccess: () => {
             queryClient.invalidateQueries(['reportedComment']);
-            showReportSuccess('Dismissed');
+            showReportSuccess('Dismissed', 'The report has been dismissed successfully');
         },
     });
 
@@ -70,41 +71,7 @@ const ReportedComments = () => {
                         <AnimatePresence>
                             {comments.length > 0 ? (
                                 comments.map((rep) => (
-                                    <motion.tr
-                                        key={rep._id}
-                                        initial={{ opacity: 0, x: -30 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 30 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="hover:bg-gray-700"
-                                    >
-                                        <td className="px-4 py-3">{rep.authorEmail}</td>
-                                        <td className="px-4 py-3">{rep.text}</td>
-                                        <td className="px-4 py-3 max-w-xs truncate">{rep.feedback}</td>
-                                        <td className="px-4 py-3 text-center whitespace-nowrap">
-                                            {new Date(rep.reportedAt).toLocaleString()}
-                                        </td>
-                                        <td className="px-4 py-3 text-center flex gap-2 space-x-2">
-                                            <motion.button
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => deleteMutation.mutate(rep._id)}
-                                                disabled={deleteMutation.isLoading}
-                                                className="px-3 py-1 bg-gradient-to-r from-red-600 to-pink-600 rounded-md text-sm font-medium disabled:opacity-50"
-                                            >
-                                                Delete
-                                            </motion.button>
-                                            <motion.button
-                                                whileHover={{ scale: 1.05 }}
-                                                whileTap={{ scale: 0.95 }}
-                                                onClick={() => dismissMutation.mutate(rep._id)}
-                                                disabled={dismissMutation.isLoading}
-                                                className="px-3 py-1 bg-gradient-to-r from-green-600 to-teal-500 rounded-md text-sm font-medium disabled:opacity-50"
-                                            >
-                                                Dismiss
-                                            </motion.button>
-                                        </td>
-                                    </motion.tr>
+                                <ReportedComment rep={rep} deleteMutation={deleteMutation} dismissMutation={dismissMutation}/>
                                 ))
                             ) : (
                                 <motion.tr

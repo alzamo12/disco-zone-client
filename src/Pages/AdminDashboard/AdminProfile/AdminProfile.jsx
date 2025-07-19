@@ -36,7 +36,9 @@ const AdminDashboard = () => {
                 setNewTag('');
                 console.log(data)
                 if(data?.insertedId){
-                    showReportSuccess()
+                    const title = 'Tag Added Successfully';
+                    const description = 'Thank you for adding a Tag and Our website running'
+                    showReportSuccess(title, description)
                 }
             }
         }
@@ -92,7 +94,7 @@ const AdminDashboard = () => {
                     className="bg-gray-800 p-6 rounded-2xl shadow-lg"
                 >
                     <h1 className="text-2xl font-bold mb-4">Dashboard Overview</h1>
-                    <div className="w-full h-64">
+                    <div className="w-full h-72">
                         <ResponsiveContainer>
                             <PieChart>
                                 <Pie

@@ -18,16 +18,17 @@ const Register = () => {
 
 
     const onSubmit = data => {
-        const { name, email, password } = data;
+        const { name, email, password, photo } = data;
 
         const toastId = toast.loading("Please wait");
         createUser(email, password)
             .then(() => {
-                updateUser(name)
+                updateUser(name, photo)
                     .then(async () => {
                         const userData = {
                             name,
-                            email
+                            email,
+                            photoURL: photo
                         };
                         mutate({ userData, toastId })
                     })
@@ -52,6 +53,9 @@ const Register = () => {
                     {/* name */}
                     <label className="label">Name</label>
                     <input {...register("name", { required: true })} type="text" className="input input-neutral text-black w-full" placeholder="Name" />
+                    {/* photo */}
+                    <label className="label">Photo URL</label>
+                    <input {...register("photo", { required: true })} type="text" className="input input-neutral text-black w-full" placeholder="Photo URL" />
                     {/* email */}
                     <label className="label">Email</label>
                     <input {...register("email", { required: true })} type="email" className="input input-neutral text-black w-full" placeholder="Email" />

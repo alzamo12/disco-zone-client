@@ -1,12 +1,49 @@
-# React + Vite
+# Disco Zone Forum
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Purpose
 
-Currently, two official plugins are available:
+A modern, responsive discussion forum built with the MERN stack and Firebase authentication. Users can sign up, create topics with tags, post comments, and report inappropriate content. Admins can verify users and manage posts and comments.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Demo
 
-## Expanding the ESLint configuration
+[View the live application here](https://disco-zone.web.app/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Key Features
+
+* **User Authentication**: Sign in/sign up using Firebase Auth with token verification middleware
+* **Role-Based Access**: Admins vs. regular users guarded by custom `verifyAdmin` middleware
+* **Topic Tags**: Create, list, and filter topics by tags using React Query mutations and queries
+* **Commenting System**: Post, view, and report comments
+* **Animated UI**: Framer Motion for page transitions, modals, and 404 page
+* **Responsive Design**: Tailwind CSS and DaisyUI components for mobile-first layouts
+* **404 Routing**: Custom black‑themed animated 404 page for unmatched routes
+
+## Tech & NPM Packages Used
+
+* **Frontend**
+
+  * `react`, `react-dom`
+  * `react-router-dom`
+  * `@tanstack/react-query`
+  * `axios`
+  * `firebase`
+  * `react-icons`
+  * `framer-motion`
+  * `tailwindcss`, `daisyui`
+  * `swiper`
+
+* **Backend**
+
+  * `express`
+  * `cors`
+  * `mongodb`
+  * `firebase-admin`
+
+## Usage
+
+* Register or log in via Firebase Auth
+* Create a new topic, add tags, and submit
+* Browse topics by tag filter
+* Comment on topics and report if necessary
+* Admin users have access to protected routes for moderation
+

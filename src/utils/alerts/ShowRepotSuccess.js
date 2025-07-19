@@ -3,11 +3,11 @@ import withReactContent from 'sweetalert2-react-content';
 
 const MySwal = withReactContent(Swal);
 
-export function showReportSuccess() {
+export function showReportSuccess(title, description) {
     MySwal.fire({
-        title: '<span class="text-green-400 font-bold text-lg">Comment Reported</span>',
+        title: `<span class="text-green-400 font-bold text-lg">${title}</span>`,
         html: `
-      <p class="text-sm text-gray-300">Thank you for helping keep the community safe. Our moderators will review it shortly.</p>
+      <p class="text-sm text-gray-300">${description}</p>
     `,
         icon: 'success',
         background: '#0f172a',

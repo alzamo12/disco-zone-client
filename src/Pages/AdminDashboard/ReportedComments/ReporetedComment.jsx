@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-
-const Comment = ({ handleFeedbackChange, handleReport, comment, feedbacks, feedbackOptions }) => {
+const ReportedComment = ({ rep, deleteMutation, dismissMutation }) => {
     const [showModal, setShowModal] = useState(false);
 
     const toggleModal = () => setShowModal(prev => !prev);
 
-    const isLong = comment.text.length > 20;
-    const displayText = isLong ? comment.text.slice(0, 20) + "..." : comment.text;
+    const isLong = rep.text.length > 20;
+    const displayText = isLong ? rep.text.slice(0, 20) + "..." : rep.text;
     return (
         <motion.tr
-            key={comment._id}
-            className="border-b border-slate-600 hover:bg-slate-700"
-        // whileHover={{ scale: 1.01 }}
+            key={rep._id}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 30 }}
+            transition={{ duration: 0.2 }}
+            className="hover:bg-gray-700"
         >
-            <td className="px-4 py-2 align-top break-words max-w-xs">{comment.authorEmail}</td>
-            {/* <td className="px-4 py-2 align-top break-words max-w-lg">{comment.text}</td> */}
-            <td className="px-4 py-2 align-top break-words max-w-lg">
+            <td className="px-4 py-3">{rep.authorEmail}</td>
+            <td className="px-1 py-3">
                 {displayText}
                 {isLong && (
                     <button
@@ -46,7 +47,7 @@ const Comment = ({ handleFeedbackChange, handleReport, comment, feedbacks, feedb
                                 className="bg-gray-900 text-white rounded-2xl w-full max-w-xs sm:max-w-sm md:max-w-md p-6 shadow-2xl"
                             >
                                 <p className="text-sm sm:text-base md:text-lg">
-                                    {comment.text}
+                                    {rep.text}
                                 </p>
 
                                 <button
@@ -60,35 +61,32 @@ const Comment = ({ handleFeedbackChange, handleReport, comment, feedbacks, feedb
                     )}
                 </AnimatePresence>
             </td>
-
-            <td className="px-4 py-2 align-top">
-                <select
-                    className="bg-slate-700 text-white rounded px-2 py-1 w-full"
-                    value={feedbacks[comment._id] || ''}
-                    onChange={(e) => handleFeedbackChange(comment._id, e.target.value)}
-                >
-                    <option value="">Select feedback</option>
-                    {feedbackOptions.map((opt) => (
-                        <option key={opt} value={opt}>
-                            {opt}
-                        </option>
-                    ))}
-                </select>
+            <td className="px-4 py-3 max-w-xs truncate">{rep.feedback}</td>
+            <td className="px-4 py-3 text-center whitespace-nowrap">
+                {new Date(rep.reportedAt).toLocaleString()}
             </td>
-            <td className="px-4 py-2 align-top">
-                <button
-                    className={`px-3 py-1 rounded font-medium transition-all ${comment?.reported
-                        ? 'bg-slate-500 cursor-not-allowed'
-                        : 'bg-rose-600 hover:bg-rose-700'
-                        } text-white`}
-                    disabled={!feedbacks[comment._id] || comment?.reported}
-                    onClick={() => handleReport(comment._id)}
+            <td className="px-4 py-3 text-center flex gap-2 space-x-2">
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => deleteMutation.mutate(rep._id)}
+                    disabled={deleteMutation.isLoading}
+                    className="px-3 py-1 bg-gradient-to-r from-red-600 to-pink-600 rounded-md text-sm font-medium disabled:opacity-50"
                 >
-                    {comment?.reported ? 'Reported' : 'Report'}
-                </button>
+                    Delete
+                </motion.button>
+                <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => dismissMutation.mutate(rep._id)}
+                    disabled={dismissMutation.isLoading}
+                    className="px-3 py-1 bg-gradient-to-r from-green-600 to-teal-500 rounded-md text-sm font-medium disabled:opacity-50"
+                >
+                    Dismiss
+                </motion.button>
             </td>
         </motion.tr>
     );
 };
 
-export default Comment;
+export default ReportedComment;

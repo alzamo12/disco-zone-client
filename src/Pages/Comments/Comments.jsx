@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { showReportSuccess } from '../../utils/alerts/ShowRepotSuccess';
 import LoadingSpinner from '../../components/shared/LoadinSpinner';
+import Comment from './Comment';
 
 const Comments = () => {
     const { postId } = useParams();
@@ -38,7 +39,9 @@ const Comments = () => {
         onSuccess: (result) => {
             if (result?.modifiedCount > 0) {
                 queryClient.invalidateQueries({ queryKey: ['commentsList', postId] });
-                showReportSuccess();
+                const title = 'Comment Reported';
+                const description = 'Thank you for helping keep the community safe. Our moderators will review it shortly.';
+                showReportSuccess(title, description);
             }
         },
     });
@@ -106,40 +109,11 @@ const Comments = () => {
                     </thead>
                     <tbody>
                         {comments.map((comment) => (
-                            <motion.tr
-                                key={comment._id}
-                                className="border-b border-slate-600 hover:bg-slate-700"
-                                whileHover={{ scale: 1.01 }}
-                            >
-                                <td className="px-4 py-2 align-top break-words max-w-xs">{comment.authorEmail}</td>
-                                <td className="px-4 py-2 align-top break-words max-w-lg">{comment.text}</td>
-                                <td className="px-4 py-2 align-top">
-                                    <select
-                                        className="bg-slate-700 text-white rounded px-2 py-1 w-full"
-                                        value={feedbacks[comment._id] || ''}
-                                        onChange={(e) => handleFeedbackChange(comment._id, e.target.value)}
-                                    >
-                                        <option value="">Select feedback</option>
-                                        {feedbackOptions.map((opt) => (
-                                            <option key={opt} value={opt}>
-                                                {opt}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </td>
-                                <td className="px-4 py-2 align-top">
-                                    <button
-                                        className={`px-3 py-1 rounded font-medium transition-all ${comment?.reported
-                                            ? 'bg-slate-500 cursor-not-allowed'
-                                            : 'bg-rose-600 hover:bg-rose-700'
-                                            } text-white`}
-                                        disabled={!feedbacks[comment._id] || comment?.reported}
-                                        onClick={() => handleReport(comment._id)}
-                                    >
-                                        {comment?.reported ? 'Reported' : 'Report'}
-                                    </button>
-                                </td>
-                            </motion.tr>
+                            <Comment comment={comment}
+                                feedbackOptions={feedbackOptions}
+                                feedbacks={feedbacks}
+                                handleFeedbackChange={handleFeedbackChange}
+                                handleReport={handleReport} />
                         ))}
                     </tbody>
                 </table>
