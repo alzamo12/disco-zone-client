@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         Component: Forbidden
       },
       {
-        path:"membership",
+        path: "membership",
         Component: Payment
       }
     ]
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
   // admin related routes
   {
     path: '/admin-dashboard',
-    element: <AdminRoute><AdminDashboard /></AdminRoute>,
+    element: <PrivateRoute><AdminRoute><AdminDashboard /></AdminRoute></PrivateRoute>,
     children: [
       {
         path: "manage-users",
