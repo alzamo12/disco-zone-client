@@ -4,6 +4,8 @@
 
 A modern, responsive discussion forum built with the MERN stack and Firebase authentication. Users can sign up, create topics with tags, post comments, and report inappropriate content. Admins can verify users and manage posts and comments.
 
+![Alt text describing the image](https://i.ibb.co.com/BVQBZzbG/Screenshot-151.png)
+
 ## Live Demo
 
 [View the live application here](https://disco-zone.web.app/)
