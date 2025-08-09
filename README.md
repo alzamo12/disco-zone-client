@@ -47,3 +47,8 @@ A modern, responsive discussion forum built with the MERN stack and Firebase aut
 * Comment on topics and report if necessary
 * Admin users have access to protected routes for moderation
 
+  1️⃣ **Clone the Repository**
+```bash
+git clone https://github.com/alzamo12/disco-zone-client
+cd disco-zone-client
+
