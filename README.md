@@ -74,11 +74,14 @@ VITE_appId= firebase app id
 VITE_STRIPE_PUBLISHABLE_KEY== strip e publishable key
 VITE_FB_APP_ID=FB App Id
 ```
+## Installation
+```
 npm install 
 or 
 nmp i
 
 ```
+## run locally
 ```
 npm run dev
 # or
