@@ -47,8 +47,19 @@ A modern, responsive discussion forum built with the MERN stack and Firebase aut
 * Comment on topics and report if necessary
 * Admin users have access to protected routes for moderation
 
-  1️⃣ **Clone the Repository**
+## 🖥 Run Locally — Step-by-Step
+
+### **Prerequisites**
+Make sure you have installed:
+- [Node.js](https://nodejs.org/) (v16+ recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- Any required services for the project (e.g., MongoDB, MySQL, Firebase, etc.)
+
+---
+
+### **1. Clone the repository**
 ```bash
 git clone https://github.com/alzamo12/disco-zone-client
 cd disco-zone-client
+
 
