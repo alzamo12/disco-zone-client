@@ -62,4 +62,14 @@ Make sure you have installed:
 git clone https://github.com/alzamo12/disco-zone-client
 cd disco-zone-client
 
+### **2. Add .env**
+```bash
+VITE_apiKey=firebase api key
+VITE_authDomain=firebase auth domain
+VITE_projectId= firebase project id
+VITE_storageBucket= firebase storage bucket
+VITE_messagingSenderId=804935853145
+VITE_appId=1= firebase appiId
+VITE_STRIPE_PUBLISHABLE_KEY= stripe publishable key
+VITE_FB_APP_ID= FB App Id
 
