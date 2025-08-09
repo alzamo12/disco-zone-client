@@ -65,8 +65,22 @@ cd disco-zone-client
 ## 🌱 Environment Variables
 Create a `.env` file in your project root:
 ```env
-PORT=5000
-DB_URI=your_database_connection_string
-API_KEY=your_api_key
+VITE_apiKey= firebase apikey
+VITE_authDomain= firebase auth domain
+VITE_projectId= firebase projectId
+VITE_storageBucket= firebase storageBucket
+VITE_messagingSenderId= firebase messaging sender id
+VITE_appId= firebase app id
+VITE_STRIPE_PUBLISHABLE_KEY== strip e publishable key
+VITE_FB_APP_ID=FB App Id
+```
+npm install 
+or 
+nmp i
 
+```
+```
+npm run dev
+# or
+yarn dev
 
