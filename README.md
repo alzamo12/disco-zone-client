@@ -56,7 +56,7 @@ Make sure you have installed:
 - Any required services for the project (e.g., MongoDB, MySQL, Firebase, etc.)
 
 ---
-
+```markdown
 ### **1. Clone the repository**
 ```bash
 git clone https://github.com/alzamo12/disco-zone-client
