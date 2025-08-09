@@ -62,5 +62,11 @@ Make sure you have installed:
 git clone https://github.com/alzamo12/disco-zone-client
 cd disco-zone-client
 
+## 🌱 Environment Variables
+Create a `.env` file in your project root:
+```env
+PORT=5000
+DB_URI=your_database_connection_string
+API_KEY=your_api_key
 
 
