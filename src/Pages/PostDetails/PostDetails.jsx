@@ -1,15 +1,17 @@
 // PostDetails.jsx
 import { useState } from 'react';
-import {  useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { FacebookShareButton, FacebookIcon, EmailShareButton, EmailIcon } from 'react-share';
-import { FaArrowUp, FaArrowDown } from 'react-icons/fa';
+import { FacebookShareButton, FacebookIcon, EmailShareButton, EmailIcon, WhatsappShareButton, WhatsappIcon } from 'react-share';
+import { FaArrowUp, FaArrowDown, FaWhatsapp } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import toast from 'react-hot-toast';
 import LoadingSpinner from '../../components/shared/LoadinSpinner';
+
+
 
 
 export default function PostDetails() {
@@ -24,12 +26,23 @@ export default function PostDetails() {
     ? `${window.location.origin}/post/${id}`
     : '';
 
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const handleWhatsAppShare = () => {
+    const message = encodeURIComponent("Check out this post! " + shareUrl);
+    const whatsappUrl = isMobile
+      ? `whatsapp://send?text=${message}` // opens app if available
+      : `https://web.whatsapp.com/send?text=${message}`; // fallback for desktop
+
+    window.location.href = whatsappUrl;
+  };
+
   // Fetch post details
-  const { data: post, isLoading } = useQuery({
+  const { data: post, isLoading , isPending:postPending} = useQuery({
     queryKey: ['postDetails', id],
     queryFn: async () => {
       console.log(id)
       const res = await axiosPublic.get(`/post/${id}`);
+      console.log(res?.data)
       return res.data;
     },
   });
@@ -38,7 +51,7 @@ export default function PostDetails() {
   const { data: { comments } = [], isLoading: commentsLoading } = useQuery({
     queryKey: ['comments', id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/comments/${id}`);
+      const res = await axiosPublic.get(`/comments/${id}`);
       return res.data
     },
   });
@@ -82,9 +95,7 @@ export default function PostDetails() {
     voteMutation.mutate({ type });
   };
 
-
-
-  if (isLoading || commentsLoading || !post) {
+  if (isLoading || commentsLoading || !post || postPending) {
     return <LoadingSpinner />
   };
 
@@ -94,15 +105,15 @@ export default function PostDetails() {
 
   return (
     <motion.div
-      className=" bg-gray- text-gray-100 p-4 md:p-8 lg:p-16"
+      className=" bg-gray- text-gray-100 py-4 md:py-8 lg:py-16"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="max-w-3xl mx-auto space-y-8">
+      <div className="w-full mx-auto space-y-8">
         {/* Post Header */}
         <motion.div
-          className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 shadow-lg"
+          className="bg-gray-800 bg-opacity-50 backdrop-blur-lg rounded-2xl p-6 shadow-lg lg:px-10"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
@@ -183,6 +194,10 @@ export default function PostDetails() {
                 >
                   <EmailIcon size={32} round />
                 </EmailShareButton>
+
+                <WhatsappShareButton url={shareUrl}>
+                  <WhatsappIcon size={32} round />
+                </WhatsappShareButton>
 
               </div>
             </div>

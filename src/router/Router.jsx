@@ -21,6 +21,10 @@ import MakeAnnouncement from "../Pages/AdminDashboard/MakeAnnouncement/MakeAnnou
 import ReportedComments from "../Pages/AdminDashboard/ReportedComments/ReportedComments";
 import AdminProfile from "../Pages/AdminDashboard/AdminProfile/AdminProfile"
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import FAQ from "../Pages/FAQ/FAQ";
+import AllPosts from "../Pages/AllPosts/AllPosts";
+import Overview from "../Pages/UserDashboard/Overview/Overview";
 const router = createBrowserRouter([
   // normale home routes
   {
@@ -46,6 +50,18 @@ const router = createBrowserRouter([
       {
         path: "membership",
         Component: Payment
+      },
+      {
+        path: "about-us",
+        Component: AboutUs
+      },
+      {
+        path: "faq",
+        Component: FAQ
+      },
+      {
+        path: 'posts',
+        Component: AllPosts
       }
     ]
   },
@@ -84,8 +100,11 @@ const router = createBrowserRouter([
       {
         path: "my-profile",
         Component: MyProfile
+      },
+      {
+        path: "overview",
+        Component: Overview
       }
-
     ]
   },
   // admin related routes
@@ -106,7 +125,7 @@ const router = createBrowserRouter([
         Component: ReportedComments
       },
       {
-        path: "admin-profile",
+        path: "admin-overview",
         Component: AdminProfile
       },
     ]

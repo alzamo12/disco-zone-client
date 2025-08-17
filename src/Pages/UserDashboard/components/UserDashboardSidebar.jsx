@@ -60,6 +60,20 @@ const UserDashboardSidebar = () => {
                         )
                     }
                 </NavLink></li>
+                {/* overview page */}
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
+                    <NavLink to="/dashboard/overview">
+                    {
+                        ({ isActive }) => (
+                            <div>
+                                <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
+                                    {isActive ? <FaNewspaper className='text-white' /> : <FaRegNewspaper />}
+                                    <span>Overview</span>
+                                </div>
+                            </div>
+                        )
+                    }
+                </NavLink></li>
             </ul>
         </ul>
     );

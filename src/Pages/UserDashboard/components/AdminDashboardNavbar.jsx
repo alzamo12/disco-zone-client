@@ -24,13 +24,13 @@ const AdminDashboardNavbar = () => {
                         }
                     </NavLink></li> */}
                 <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
-                    <NavLink to="/admin-dashboard/admin-profile">
+                    <NavLink to="/admin-dashboard/admin-overview">
                         {
                             ({ isActive }) => (
                                 <div>
                                     <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                         {isActive ? <MdLocalPostOffice className='text-white' /> : <MdOutlineLocalPostOffice />}
-                                        <span>Admin Profile</span>
+                                        <span>Admin Overview</span>
                                     </div>
                                 </div>
                             )

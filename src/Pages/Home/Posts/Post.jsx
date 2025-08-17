@@ -18,8 +18,7 @@ const Post = ({ post, handlePostClick }) => {
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 200 }}
-            onClick={() => handlePostClick(post._id)}
-            className="p-5 bg-slate-800 border border-slate-700 rounded-xl shadow-md cursor-pointer hover:shadow-lg transition duration-300"
+            className="p-5 bg-slate-800 border border-slate-700 rounded-xl shadow-md cursor-pointer hover:shadow-lg transition duration-300 h-40"
         >
             <div className="flex items-center gap-3 mb-3">
                 <img
@@ -34,10 +33,15 @@ const Post = ({ post, handlePostClick }) => {
                     </p>
                 </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-                <span className="bg-sky-700/20 text-sky-300 px-2 py-1 text-xs rounded-md border border-sky-500">
+            <div className="flex flex-wrap gap-2 w-full justify-between">
+                <span className="bg-sky-700/20 text-sky-300 px-2 py-1 text-xs rounded-md border border-sky-500 flex items-center">
                     #{post?.tag?.value || post?.tag}
                 </span>
+                <div>
+                    <button
+                        onClick={() => handlePostClick(post._id)}
+                        className=' btn shadow-none text-sky-300 bg-sky-700/20 border-sky-500 flex-end justify-self-end'>see more</button>
+                </div>
             </div>
         </motion.div>
     );

@@ -24,8 +24,8 @@ export default function Navbar() {
 
     return (
         // Sticky full-width navbar
-        <nav className="bg-white shadow-md fixed top-0 inset-x-0 z-50">
-            <div className="w-screen px-4 sm:px-6 lg:px-8">
+        <nav className="max-w-screen-2xl mx-auto">
+            <div className="px-4 sm:px-6 lg:px-8 xl:px-0">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex items-center">
                         {/* Logo and Name */}
@@ -48,22 +48,55 @@ export default function Navbar() {
                             >
                                 Home
                             </NavLink>
+                            {/* about us route */}
                             <NavLink
-                                to="/membership"
+                                to="/about-us"
                                 className={({ isActive }) =>
                                     `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
                             >
-                                Membership
+                                About Us
                             </NavLink>
+
+                            {/* faq us route */}
                             <NavLink
-                                to="/dashboard/my-profile"
+                                to="/faq"
                                 className={({ isActive }) =>
                                     `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
                             >
-                                Dashboard
+                               FAQ
                             </NavLink>
+
+                            {/* All Posts route */}
+                            <NavLink
+                                to="/posts"
+                                className={({ isActive }) =>
+                                    `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                }
+                            >
+                               Posts
+                            </NavLink>
+
+                            {/* private routes in navbar */}
+                            {
+                                user &&
+                                <>  <NavLink
+                                    to="/membership"
+                                    className={({ isActive }) =>
+                                        `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                    }
+                                >
+                                    Membership
+                                </NavLink>
+                                    <NavLink
+                                        to="/dashboard/my-profile"
+                                        className={({ isActive }) =>
+                                            `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                        }>
+                                        Dashboard
+                                    </NavLink></>
+                            }
                         </div>
                     </div>
 
@@ -186,7 +219,7 @@ export default function Navbar() {
                             className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                             Dashboard
-                        </NavLink>                       
+                        </NavLink>
                     </div>
                 </div>
             )}
