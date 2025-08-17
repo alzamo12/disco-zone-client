@@ -94,7 +94,7 @@ const UsersTable = () => {
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.95 }}
         transition={{ duration: 0.3 }}
-        className="overflow-x-auto bg-gray-900 rounded-2xl shadow-lg"
+        className="overflow-x-auto bg-secondary rounded-2xl shadow-lg"
       >
         <table className="min-w-full text-white">
           <thead className="bg-gray-800">
@@ -129,12 +129,12 @@ const UsersTable = () => {
                           whileHover={{ scale: 1.1 }}
                           whileTap={{ scale: 0.9 }}
                           onClick={() => handleMakeAdmin(user._id, user.name)}
-                          className="px-3 py-1 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-md text-sm font-medium"
+                          className="px-3 py-1 bg-accent rounded-md text-sm font-medium"
                         >
                           Make Admin
                         </motion.button>
                       ) : (
-                        <span className="px-3 py-1 bg-green-600 rounded-md text-sm">
+                        <span className="px-3 py-1 bg-outline border-accent border rounded-md text-sm">
                           Admin
                         </span>
                       )}

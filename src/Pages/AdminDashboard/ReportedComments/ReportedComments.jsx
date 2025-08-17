@@ -43,7 +43,7 @@ const ReportedComments = () => {
     const totalPages = Math.ceil(commentsCount / limit);
 
     return (
-        <div className="max-w-5xl mx-auto my-12 p-4 lg:p-8 bg-gray-900 rounded-2xl shadow-2xl text-white">
+        <div className="max-w-5xl mx-auto my-12 p-4 lg:p-8 rounded-2xl shadow-2xl text-white">
             <motion.h1
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -53,7 +53,7 @@ const ReportedComments = () => {
                 Reported Activities
             </motion.h1>
 
-            <div className="overflow-x-auto bg-gray-800 rounded-xl shadow-inner">
+            <div className="overflow-x-auto bg-secondary rounded-xl shadow-inner">
                 <table className="min-w-full divide-y divide-gray-700">
                     <thead className="bg-gray-700">
                         <tr>

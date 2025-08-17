@@ -92,13 +92,13 @@ export default function AddPost() {
     };
 
     return (
-        <div className="flex justify-center py-12 px-4 bg-gray-900 min-h-screen">
+        <div className="flex justify-center py-12 px-4 bg- min-h-screen">
             <motion.form
                 onSubmit={handleSubmit(onSubmit)}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="w-full max-w-2xl bg-gray-800 p-8 rounded-2xl shadow-2xl space-y-6"
+                className="w-full max-w-2xl bg-secondary p-8 rounded-2xl shadow-2xl space-y-6"
             >
                 <h2 className="text-3xl font-bold text-center text-white">
                     Create New Post
@@ -182,7 +182,7 @@ export default function AddPost() {
                     disabled={mutation.isLoading}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold disabled:opacity-50 transition"
+                    className="w-full py-3 btn-outline border border-accent rounded-full text-white font-semibold disabled:opacity-50 transition"
                 >
                     {mutation.isLoading ? 'Adding...' : 'Add Post'}
                 </motion.button>

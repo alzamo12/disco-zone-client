@@ -46,7 +46,7 @@ const Overview = () => {
     })
 
     return (
-        <section className="bg-neutral-800 text-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
+        <section className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
             <div className="mx-auto space-y-12">
 
                 {/* Page Heading */}
@@ -67,7 +67,7 @@ const Overview = () => {
                         initial={{ opacity: 0, x: -30 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6 }}
-                        className="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-md"
+                        className="bg-base-200 border border-slate-700 rounded-xl p-6 shadow-md"
                     >
                         <h3 className="text-xl font-semibold text-sky-400 mb-4">
                             Comments Over Time

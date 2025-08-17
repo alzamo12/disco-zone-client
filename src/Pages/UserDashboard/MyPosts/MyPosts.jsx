@@ -59,7 +59,7 @@ const MyPosts = () => {
         My Posts
       </motion.h2>
 
-      <div className="bg-gray-900 rounded-2xl shadow-2xl overflow-hidden min-w-full">
+      <div className="bg-secondary rounded-2xl shadow-2xl overflow-hidden min-w-full">
         <table className="min-w-full lg:w-1/3 xl:min-w-full text-white">
           <thead className="bg-gray-800">
             <tr>
@@ -90,7 +90,7 @@ const MyPosts = () => {
                     <td className="px-4 py-3">
                       <Link
                         to={`/comments/${post._id}`}
-                        className="inline-flex items-center text-indigo-400 hover:underline"
+                        className="inline-flex items-center text-accent hover:underline"
                       >
                         <FaComments className="mr-1" /> Comment
                       </Link>

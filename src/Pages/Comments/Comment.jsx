@@ -79,7 +79,7 @@ const Comment = ({ handleFeedbackChange, handleReport, comment, feedbacks, feedb
                 <button
                     className={`px-3 py-1 rounded font-medium transition-all ${comment?.reported
                         ? 'bg-slate-500 cursor-not-allowed'
-                        : 'bg-rose-600 hover:bg-rose-700'
+                        : 'bg-accent hover:bg-sky-600'
                         } text-white`}
                     disabled={!feedbacks[comment._id] || comment?.reported}
                     onClick={() => handleReport(comment._id)}

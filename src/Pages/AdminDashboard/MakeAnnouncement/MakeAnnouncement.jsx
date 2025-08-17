@@ -33,7 +33,7 @@ const MakeAnnouncement = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="w-full max-w-2xl bg-gray-900 rounded-2xl shadow-xl p-4 lg:p-8"
+                className="w-full max-w-2xl bg-secondary rounded-2xl shadow-xl p-4 lg:p-8"
             >
                 <h2 className="text-3xl font-semibold text-center text-white mb-6">
                     Make Announcement
@@ -75,7 +75,7 @@ const MakeAnnouncement = () => {
                         disabled={mutation.isLoading}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
-                        className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold disabled:opacity-50 transition"
+                        className="w-full py-3 bg-accent rounded-full text-white font-semibold disabled:opacity-50 transition"
                     >
                         {mutation.isLoading ? 'Posting...' : 'Post Announcement'}
                     </motion.button>

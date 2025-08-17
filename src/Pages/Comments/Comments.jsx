@@ -87,24 +87,24 @@ const Comments = () => {
 
     return (
         <motion.div
-            className="max-w-6xl mx-auto p-6 text-slate-100"
+            className="w-full mx-auto p-6 text-slate-100"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
         >
-            <h1 className="text-3xl font-bold mb-6 text-center text-rose-500">🗨️ Comments Overview</h1>
+            <h1 className="text-3xl font-bold mb-6 text-center text-accent">🗨️ Comments Overview</h1>
             <p className="text-center text-slate-400 mb-8 max-w-2xl mx-auto">
                 Explore what people are saying on this post. You can also report comments with valid reasons.
             </p>
 
             <div className="overflow-x-auto bg-slate-800 shadow-lg rounded-xl">
-                <table className="w-full table-auto">
+                <table className="w-full  table-auto">
                     <thead className="bg-slate-700">
                         <tr>
-                            <th className="px-4 py-3 text-left text-rose-300">Email</th>
-                            <th className="px-4 py-3 text-left text-rose-300">Comment</th>
-                            <th className="px-4 py-3 text-left text-rose-300">Feedback</th>
-                            <th className="px-4 py-3 text-left text-rose-300">Report</th>
+                            <th className="px-4 py-3 text-left text-accent">Email</th>
+                            <th className="px-4 py-3 text-left text-accent">Comment</th>
+                            <th className="px-4 py-3 text-left text-accent">Feedback</th>
+                            <th className="px-4 py-3 text-left text-accent">Report</th>
                         </tr>
                     </thead>
                     <tbody>
