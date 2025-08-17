@@ -33,10 +33,10 @@ const FAQ = () => {
     };
 
     return (
-        <section className="bg-neutral-800 text-white py-16 px-6 md:px-12 lg:px-20">
+        <section className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 rounded-xl">
             <div className="max-w-5xl mx-auto">
                 {/* Heading */}
-                <h2 className="text-3xl md:text-4xl font-bold text-center text-sky-500 mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold text-center text-accent mb-10">
                     Frequently Asked Questions
                 </h2>
 
