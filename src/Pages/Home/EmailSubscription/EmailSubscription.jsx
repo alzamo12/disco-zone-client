@@ -1,9 +1,25 @@
+import { useMutation } from "@tanstack/react-query";
 import React, { useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const EmailSubscription = () => {
-    const [email, setEmail] = useState("");
+    // const [email, setEmail] = useState("");
+    const { user } = useAuth();
+    const email = user?.email
     const [status, setStatus] = useState(null); // 'success' | 'error' | null
     const [loading, setLoading] = useState(false);
+    const axiosSecure = useAxiosSecure();
+    const { mutateAsync, isPending } = useMutation({
+        mutationFn: async (email) => {
+            const res = await axiosSecure.post("/subscribe", { email });
+            return res.data
+        },
+        onSuccess: data => {
+            toast.success("You have Successfully subscribe us")
+        }
+    })
 
     const handleSubscribe = async (e) => {
         e.preventDefault();
@@ -12,26 +28,7 @@ const EmailSubscription = () => {
         setLoading(true);
         setStatus(null);
 
-        try {
-            const res = await fetch("/api/subscribe", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email }),
-            });
-
-            const data = await res.json();
-            if (data.success) {
-                setStatus("success");
-                setEmail("");
-            } else {
-                setStatus("error");
-            }
-        } catch (err) {
-            console.error("Subscription error:", err);
-            setStatus("error");
-        } finally {
-            setLoading(false);
-        }
+        mutateAsync(email)
     };
 
     return (
@@ -53,7 +50,7 @@ const EmailSubscription = () => {
                         type="email"
                         placeholder="Enter your email"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        readOnly
                         className="w-full sm:w-auto flex-1 px-4 py-3 rounded-xl border border-slate-700 bg-slate-900 text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
                         required
                     />
@@ -62,19 +59,12 @@ const EmailSubscription = () => {
                         disabled={loading}
                         className="bg-sky-500 text-white px-6 py-3 rounded-xl font-semibold hover:bg-sky-600 transition"
                     >
-                        {loading ? "Subscribing..." : "Subscribe"}
+                        {isPending ? "Subscribing..." : "Subscribe"}
                     </button>
                 </form>
 
                 {/* Status Messages */}
-                {status === "success" && (
-                    <p className="text-green-400 mt-2">Subscribed successfully!</p>
-                )}
-                {status === "error" && (
-                    <p className="text-red-400 mt-2">
-                        Something went wrong. Please try again.
-                    </p>
-                )}
+               
             </div>
         </section>
     );

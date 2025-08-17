@@ -35,7 +35,7 @@ const Posts = ({ search }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full mx-auto px-4 md:px-6 xl:px-0 py-8 space-y-6"
+            className="w-full mx-auto md:px-6 xl:px-0 py-8 space-y-6"
         >
             <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h1 className="text-3xl font-bold text-sky-400 mb-4 sm:mb-0">🌐 Explore Posts</h1>

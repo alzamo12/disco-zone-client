@@ -207,6 +207,31 @@ export default function Navbar() {
                             Home
                         </NavLink>
                         <NavLink
+                            to="/posts"
+                            className={({ isActive }) =>
+                                `block px-4 py-2 text-gray-700 hover:bg-gray-100 ${isActive ? 'font-semibold' : ''}`
+                            }
+                        >
+                            Posts
+                        </NavLink>
+                        <NavLink
+                            to="/about-us"
+                            className={({ isActive }) =>
+                                `block px-4 py-2 text-gray-700 hover:bg-gray-100 ${isActive ? 'font-semibold' : ''}`
+                            }
+                        >
+                            About Us
+                        </NavLink>
+                        <NavLink
+                            to="/faq"
+                            className={({ isActive }) =>
+                                `block px-4 py-2 text-gray-700 hover:bg-gray-100 ${isActive ? 'font-semibold' : ''}`
+                            }
+                        >
+                            FAQ
+                        </NavLink>
+ 
+                        <NavLink
                             to="/membership"
                             className={({ isActive }) =>
                                 `block px-4 py-2 text-gray-700 hover:bg-gray-100 ${isActive ? 'font-semibold' : ''}`
@@ -215,7 +240,7 @@ export default function Navbar() {
                             Membership
                         </NavLink>
                         <NavLink
-                            to="/dashboard"
+                            to="/dashboard/my-profile"
                             className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                         >
                             Dashboard

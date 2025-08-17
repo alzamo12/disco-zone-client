@@ -20,7 +20,7 @@ const Tags = () => {
     };
 
     return (
-        <section className="bg-primary py-10 px-4 mx-2 md:px-8 rounded-xl w-full md:mx-auto">
+        <section className="bg-primary py-10 px-4  md:px-8 rounded-xl w-full md:mx-auto">
             <div className="w-full mx-auto">
                 <h2 className="text-3xl font-bold mb-6 text-white">Browse by Tag</h2>
 

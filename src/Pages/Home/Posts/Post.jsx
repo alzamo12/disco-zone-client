@@ -21,7 +21,7 @@ const Post = ({ post, handlePostClick }) => {
             whileHover={{ scale: 1.01 }}
             whileTap={{ scale: 0.98 }}
             transition={{ type: 'spring', stiffness: 200 }}
-            className="p-5 bg-primary border border-slate-700 rounded-xl shadow-md cursor-pointer hover:shadow-lg transition duration-300 h-48"
+            className="p-5 bg-primary border border-slate-700 rounded-xl shadow-md cursor-pointer hover:shadow-lg transition duration-300 h-60 md:h-48"
         >
             <div className='mb-3'>
                 <div className="flex items-center gap-3 mb-3">
