@@ -24,13 +24,13 @@ const AdminDashboardNavbar = () => {
                         }
                     </NavLink></li> */}
                 <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
-                    <NavLink to="/admin-dashboard/admin-overview">
+                    <NavLink to="/admin-dashboard/admin-profile">
                         {
                             ({ isActive }) => (
                                 <div>
                                     <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                         {isActive ? <MdLocalPostOffice className='text-white' /> : <MdOutlineLocalPostOffice />}
-                                        <span>Admin Overview</span>
+                                        <span>Admin Profile</span>
                                     </div>
                                 </div>
                             )
@@ -70,6 +70,33 @@ const AdminDashboardNavbar = () => {
                                     <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
                                         {isActive ? <FaUser className='text-white' /> : <FaRegUser />}
                                         <span>Reported Comments</span>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </NavLink></li>
+                {/* overview page */}
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
+                    <NavLink to="/admin-dashboard/overview">
+                        {
+                            ({ isActive }) => (
+                                <div>
+                                    <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
+                                        {isActive ? <FaNewspaper className='text-white' /> : <FaRegNewspaper />}
+                                        <span>Overview</span>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </NavLink></li>
+                <li className='pb-1 hover:bg-neutral-700 border-b-2 border-white'>
+                    <NavLink to="/admin-dashboard/my-profile">
+                        {
+                            ({ isActive }) => (
+                                <div>
+                                    <div className={`flex items-center gap-2 hover:bg-neutral-700 p-2 rounded ${isActive && 'bg-neutral-700'} `}>
+                                        {isActive ? <FaNewspaper className='text-white' /> : <FaRegNewspaper />}
+                                        <span>My Profile</span>
                                     </div>
                                 </div>
                             )

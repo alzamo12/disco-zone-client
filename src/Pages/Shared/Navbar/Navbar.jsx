@@ -139,7 +139,7 @@ export default function Navbar() {
                                             <Menu.Item>
                                                 {({ active }) => (
                                                     <NavLink
-                                                        to={role === 'admin' ? "/admin-dashboard/admin-overview" : "/dashboard/my-profile"}
+                                                        to={role === 'admin' ? "/admin-dashboard/admin-profile" : "/dashboard/my-profile"}
                                                         className={`block px-4 py-2 text-sm ${active ? 'bg-gray-100' : ''}`}
                                                     >
                                                         Dashboard

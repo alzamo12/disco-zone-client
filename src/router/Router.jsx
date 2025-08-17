@@ -125,9 +125,17 @@ const router = createBrowserRouter([
         Component: ReportedComments
       },
       {
-        path: "admin-overview",
+        path: "admin-profile",
         Component: AdminProfile
       },
+      {
+        path: "overview",
+        Component: Overview
+      },
+      {
+        path: 'my-profile',
+        Component: MyProfile
+      }
     ]
   },
   {
