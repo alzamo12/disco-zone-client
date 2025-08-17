@@ -16,7 +16,7 @@ const Home = () => {
         setSearch(searchText)
     };
     return (
-        <div className='space-y-20'>
+        <div className='space-y-10 md:space-y-16 lg:space-y-24'>
             <Banner handleSubmit={handleSubmit} />
             <Posts search={search} />
             <AnnouncementsSection />

@@ -5,7 +5,7 @@ import Footer from '../Pages/Shared/Footer/Footer';
 
 const RootLayout = () => {
     return (
-        <div className=' max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-screen-2xl mx-auto'>
+        <div className='max-w-[350px] md:max-w-3xl lg:max-w-4xl xl:max-w-6xl 2xl:max-w-screen-2xl mx-auto'>
 
             <Toaster />
             <div className='bg-white 

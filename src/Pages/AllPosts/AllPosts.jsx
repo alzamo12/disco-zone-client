@@ -48,7 +48,7 @@ const AllPosts = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-white py-16 xl:min-h-screen space-y-5"
+            className="text-white xl:min-h-screen space-y-5"
         >
             <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h1 className="text-3xl font-bold text-sky-400 mb-4 sm:mb-0">
@@ -74,7 +74,7 @@ const AllPosts = () => {
                 scrollThreshold={0.9}
             >
                 <motion.div
-                    className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
+                    className="w-full grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-4 md:gap-6"
                     initial="hidden"
                     animate="visible"
                     variants={{

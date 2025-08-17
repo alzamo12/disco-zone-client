@@ -82,7 +82,7 @@ const UsersTable = () => {
           type="submit"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-lg text-white font-medium transition"
+          className="px-6 py-2 btn-outline border cursor-pointer border-accent hover:bg-accent rounded-lg text-white font-medium transition"
         >
           Search
         </motion.button>
@@ -141,8 +141,8 @@ const UsersTable = () => {
                     </td>
                     <td className="px-4 py-3">
                       <span
-                        className={`px-3 py-1 rounded-md text-sm ${
-                          user.badge === 'gold' ? 'bg-green-600' : 'bg-red-600'
+                        className={`px-3 py-1 rounded-md text-sm  ${
+                          user.badge === 'gold' ? 'text-accent border border-accent' : 'border border-base-200 text-accent'
                         }`}
                       >
                         {user.badge === 'gold' ? 'Active' : 'Inactive'}
@@ -169,7 +169,7 @@ const UsersTable = () => {
           whileTap={{ scale: 0.9 }}
           onClick={() => setPage((p) => Math.max(p - 1, 1))}
           disabled={page === 1}
-          className="px-4 py-2 bg-gray-700 disabled:opacity-50 text-white rounded-md transition"
+          className="px-4 py-2 cursor-pointer bg-gray-700 disabled:opacity-50 text-white rounded-md transition"
         >
           Previous
         </motion.button>
@@ -181,7 +181,7 @@ const UsersTable = () => {
               onClick={() => setPage(i + 1)}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
-              className={`px-3 py-1 rounded-full text-sm font-medium transition ${
+              className={`px-3 py-1 cursor-pointer rounded-full text-sm font-medium transition ${
                 page === i + 1
                   ? 'bg-indigo-600 text-white'
                   : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
@@ -197,7 +197,7 @@ const UsersTable = () => {
           whileTap={{ scale: 0.9 }}
           onClick={() => setPage((p) => Math.min(p + 1, totalPage))}
           disabled={page === totalPage}
-          className="px-4 py-2 bg-gray-700 disabled:opacity-50 text-white rounded-md transition"
+          className="px-4 py-2 cursor-pointer bg-gray-700 disabled:opacity-50 text-white rounded-md transition"
         >
           Next
         </motion.button>

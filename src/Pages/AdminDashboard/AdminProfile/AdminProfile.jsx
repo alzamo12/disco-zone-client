@@ -55,9 +55,9 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="flex flex-col gap-4 lg:flex-row bg-gray-900 min-h-full text-white">
+        <div className="flex flex-col gap-4 lg:flex-row  min-h-full text-white">
             {/* Sidebar */}
-            <aside className="rounded-3xl lg:rounded-none lg:block lg:w-1/4 bg-gray-800 p-6">
+            <aside className="rounded-3xl lg:rounded-none lg:block lg:w-1/4 bg-base-200 p-6">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
@@ -91,7 +91,7 @@ const AdminDashboard = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.6 }}
-                    className="bg-gray-800 p-6 rounded-2xl shadow-lg"
+                    className="bg-base-200 p-6 rounded-2xl shadow-lg"
                 >
                     <h1 className="text-2xl font-bold mb-4">Dashboard Overview</h1>
                     <div className="w-full h-72">
@@ -125,7 +125,7 @@ const AdminDashboard = () => {
                                 e.preventDefault();
                                 if (newTag.trim()) addTagMutation.mutate(newTag.trim());
                             }}
-                            className="flex space-x-2"
+                            className="flex flex-col md:flex-row gap-4 space-x-2"
                         >
                             <input
                                 type="text"
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
                             />
                             <button
                                 type="submit"
-                                className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition"
+                                className="px-4 py-2 btn-outline border-accent border hover:bg-accent cursor-pointer rounded-lg transition"
                                 disabled={addTagMutation.isLoading}
                             >
                                 {addTagMutation.isLoading ? 'Adding...' : 'Add Tag'}

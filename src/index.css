@@ -1,6 +1,5 @@
 @import "tailwindcss";
-
-@plugin "daisyui" {
+@import url('https://fonts.googleapis.com/css2?family=Edu+NSW+ACT+Cursive:wght@400..700&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');@plugin "daisyui" {
     themes: light --default
 }
 
@@ -11,6 +10,9 @@
     --color-secondary: #0f172a;
     --color-accent: #0ea5e9;
     --color-base-200: #1e293b
-
-
 }
+
+.noto{
+  font-family: "Noto Serif", serif;
+}
+

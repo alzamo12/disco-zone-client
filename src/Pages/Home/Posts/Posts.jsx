@@ -35,7 +35,7 @@ const Posts = ({ search }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="w-full mx-auto md:px-6 xl:px-0 py-8 space-y-6"
+            className="w-full mx-auto md:px-6 xl:px-0  space-y-6"
         >
             <div className="flex flex-col sm:flex-row justify-between items-center">
                 <h1 className="text-3xl font-bold text-sky-400 mb-4 sm:mb-0">🌐 Explore Posts</h1>
@@ -48,7 +48,7 @@ const Posts = ({ search }) => {
                 </button>
             </div>
 
-            <div className='w-full space-y-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-5'>
+            <div className='w-full space-y-6 grid grid-cols-1 xl:grid-cols-2 2xl:grid-cols-3 gap-2 md:gap-5'>
                 {
                     posts?.map(post => (
                         <Post key={post._id} post={post} handlePostClick={handlePostClick} />

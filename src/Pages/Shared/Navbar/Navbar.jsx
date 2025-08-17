@@ -24,7 +24,7 @@ export default function Navbar() {
 
     return (
         // Sticky full-width navbar
-        <nav className="max-w-screen-2xl mx-auto">
+        <nav className="max-w-[350px] md:max-w-2xl lg:max-w-4xl  xl:max-w-6xl 2xl:max-w-screen-2xl mx-auto">
             <div className="px-4 sm:px-6 lg:px-8 xl:px-0">
                 <div className="flex justify-between h-16 items-center">
                     <div className="flex items-center">
@@ -39,11 +39,11 @@ export default function Navbar() {
                             <span className="font-bold text-xl">Disco Zone</span>
                         </NavLink>
                         {/* Desktop Menu-navlinks */}
-                        <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                        <div className="hidden ml-2 text-xs lg:text-base lg:ml-6 sm:flex sm:space-x-3">
                             <NavLink
                                 to="/"
                                 className={({ isActive }) =>
-                                    `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                    `inline-flex items-center pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
                             >
                                 Home
@@ -52,7 +52,7 @@ export default function Navbar() {
                             <NavLink
                                 to="/about-us"
                                 className={({ isActive }) =>
-                                    `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                    `inline-flex items-center  pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
                             >
                                 About Us
@@ -62,7 +62,7 @@ export default function Navbar() {
                             <NavLink
                                 to="/faq"
                                 className={({ isActive }) =>
-                                    `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                    `inline-flex items-center pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
                             >
                                FAQ
@@ -72,7 +72,7 @@ export default function Navbar() {
                             <NavLink
                                 to="/posts"
                                 className={({ isActive }) =>
-                                    `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                    `inline-flex items-center pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                 }
                             >
                                Posts
@@ -84,7 +84,7 @@ export default function Navbar() {
                                 <>  <NavLink
                                     to="/membership"
                                     className={({ isActive }) =>
-                                        `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                        `inline-flex items-center pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                     }
                                 >
                                     Membership
@@ -92,7 +92,7 @@ export default function Navbar() {
                                     <NavLink
                                         to="/dashboard/my-profile"
                                         className={({ isActive }) =>
-                                            `inline-flex items-center px-1 pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
+                                            `inline-flex items-center pt-1 text-gray-700 hover:text-gray-900 ${isActive ? 'font-semibold' : ''}`
                                         }>
                                         Dashboard
                                     </NavLink></>
