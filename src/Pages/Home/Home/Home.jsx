@@ -3,6 +3,10 @@ import Banner from '../Banner/Banner';
 import Tags from '../Tags/Tags';
 import AnnouncementsSection from '../AnnouncementsSection/AnnouncementsSection';
 import Posts from '../Posts/Posts';
+import Featured from '../Featured/Featured';
+import TopContributors from '../TopContributers/TopContributers';
+import JoinConversation from '../JoinConversation/JoinConversation';
+import EmailSubscription from '../EmailSubscription/EmailSubscription';
 
 const Home = () => {
     const [search, setSearch] = useState("");
@@ -17,6 +21,10 @@ const Home = () => {
             <Posts search={search} />
             <AnnouncementsSection />
             <Tags />
+            <Featured />
+            <TopContributors />
+            <EmailSubscription />
+            <JoinConversation />
         </div>
     );
 };
