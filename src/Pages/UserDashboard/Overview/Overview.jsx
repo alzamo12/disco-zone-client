@@ -46,7 +46,7 @@ const Overview = () => {
     })
 
     return (
-        <section className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 min-h-screen">
+        <section className="bg-primary max-w-5xl mx-auto text-white py-16 min-h-screen">
             <div className="mx-auto space-y-12">
 
                 {/* Page Heading */}

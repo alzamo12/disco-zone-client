@@ -92,7 +92,7 @@ export default function AddPost() {
     };
 
     return (
-        <div className="flex justify-center py-12 px-4 bg- min-h-screen">
+        <div className="flex justify-center py-12 max-w-5xl mx-auto px-4 bg- min-h-screen">
             <motion.form
                 onSubmit={handleSubmit(onSubmit)}
                 initial={{ opacity: 0, y: 20 }}

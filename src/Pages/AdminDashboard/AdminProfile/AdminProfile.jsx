@@ -55,9 +55,9 @@ const AdminDashboard = () => {
     ];
 
     return (
-        <div className="flex flex-col gap-4 lg:flex-row  min-h-full text-white">
+        <div className="flex max-w-7xl mx-auto flex-col gap-4 lg:flex-row  min-h-full text-white">
             {/* Sidebar */}
-            <aside className="rounded-3xl lg:rounded-none lg:block lg:w-1/4 bg-base-200 p-6">
+            <aside className="rounded-3xl lg:rounded-2xl lg:block lg:w-1/4 bg-base-200 p-6">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}

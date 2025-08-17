@@ -49,7 +49,7 @@ const MyPosts = () => {
   if (isLoading) return <WhiteSpinner />;
 
   return (
-    <div className="w-screen md:max-w-4xl mx-auto my-12 md:px-4 lg:px-4">
+    <div className="w-screen md:max-w-5xl mx-auto my-12 md:px-4 lg:px-4">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}

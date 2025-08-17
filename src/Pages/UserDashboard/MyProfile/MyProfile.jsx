@@ -39,7 +39,7 @@ const MyProfile = () => {
             transition={{ duration: 0.4 }}
             className="flex justify-center py-12 bg-primary min-h-screen mx-2"
         >
-            <div className="w-full max-w-3xl bg-base-200 rounded-2xl shadow-2xl p-8 space-y-8">
+            <div className="w-full max-w-5xl bg-base-200 rounded-2xl shadow-2xl p-8 space-y-8">
                 {/* Profile Header */}
                 <motion.div
                     initial={{ x: -50, opacity: 0 }}

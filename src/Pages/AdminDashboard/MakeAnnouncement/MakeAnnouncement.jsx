@@ -33,7 +33,7 @@ const MakeAnnouncement = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="w-full max-w-2xl bg-secondary rounded-2xl shadow-xl p-4 lg:p-8"
+                className="w-full max-w-5xl bg-secondary rounded-2xl shadow-xl p-4 lg:p-8"
             >
                 <h2 className="text-3xl font-semibold text-center text-white mb-6">
                     Make Announcement

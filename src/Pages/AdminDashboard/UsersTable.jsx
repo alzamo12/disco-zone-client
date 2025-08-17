@@ -66,7 +66,7 @@ const UsersTable = () => {
   const totalPage = Math.ceil(usersCount / limit);
 
   return (
-    <div className="max-w-4xl mx-auto my-12 px-4 space-y-8">
+    <div className="max-w-5xl mx-auto my-12 px-4 space-y-8">
       {/* Search */}
       <form
         onSubmit={handleSearch}
