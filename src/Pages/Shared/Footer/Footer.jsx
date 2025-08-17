@@ -1,7 +1,13 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { Link, useNavigate } from 'react-router';
 
 const Footer = () => {
+    const scrollToSection = (id) => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    };
+
+    const navigate = useNavigate();
     return (
         <footer className="footer p-10 bg-black text-white w-screen relative left-1/2 right-1/2 ml-[-50vw] mr-[-50vw]">
             <div className="container mx-auto">
@@ -18,24 +24,22 @@ const Footer = () => {
 
                     {/* Navigation Links */}
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mx-auto w-full justify-between">
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col justify-self-start text-left'>
                             <span className="footer-title text-gray-300">Product</span>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Features</a>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Pricing</a>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Use Cases</a>
+                            <Link to="/posts"><a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Posts</a></Link>
+                            <button onClick={() => scrollToSection("contribute")} className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Contributors</button>
                         </div>
-                        <div className='flex flex-col'>
-                            <span className="footer-title text-gray-300">Company</span> 
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">About Us</a>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Careers</a>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Blog</a>
+                        <div className='flex flex-col justify-self-left text-left'>
+                            <span className="footer-title text-gray-300">Company</span>
+                            <button onClick={() => navigate("/about-us")} className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white text-left" >About Us</button>
+                            <button onClick={() => scrollToSection('featured')} className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white text-left" >Featured</button>
                         </div>
                         <div className='flex flex-col'>
                             <span className="footer-title text-gray-300">Support</span>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Help Center</a>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Contact Us</a>
-                            <a className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white" href="#">Privacy Policy</a>
+                            <button onClick={() => scrollToSection("subscribe")} className="link link-hover text-gray-500 transition-colors duration-300 hover:text-white text-left" href="#">Subscribe</button>
+
                         </div>
+
                         <div>
                             <span className="footer-title text-gray-300">Follow Us</span>
                             <div className="grid grid-cols-2 gap-4 mt-2">

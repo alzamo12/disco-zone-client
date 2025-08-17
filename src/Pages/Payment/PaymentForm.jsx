@@ -120,7 +120,7 @@ const PaymentForm = () => {
                 initial={{ y: 20 }}
                 animate={{ y: 0 }}
                 transition={{ delay: 0.2, duration: 0.4 }}
-                className="w-full max-w-md bg-gray-800 rounded-2xl shadow-2xl p-8 space-y-6"
+                className="w-full max-w-md bg-primary rounded-2xl shadow-2xl p-8 space-y-6"
             >
                 <h2 className="text-2xl font-bold text-center text-white">Complete Payment</h2>
 
@@ -143,7 +143,7 @@ const PaymentForm = () => {
                     disabled={!stripe}
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.97 }}
-                    className="w-full py-3 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full text-white font-semibold disabled:opacity-50 transition"
+                    className="w-full py-3 btn-outline border-accent border rounded-full text-white font-semibold disabled:opacity-50 transition"
                 >
                     Pay Now
                 </motion.button>

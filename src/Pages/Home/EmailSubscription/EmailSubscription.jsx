@@ -35,7 +35,7 @@ const EmailSubscription = () => {
     };
 
     return (
-        <section className="bg-primary rounded-xl text-white py-16 px-6 md:px-12 lg:px-20">
+        <section id="subscribe" className="bg-primary rounded-xl text-white py-16 px-6 md:px-12 lg:px-20">
             <div className="max-w-3xl mx-auto text-center space-y-6">
                 <h2 className="text-3xl md:text-4xl font-bold text-sky-500">
                     Stay Updated

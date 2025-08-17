@@ -9,7 +9,7 @@ const contributors = [
 
 const TopContributors = () => {
   return (
-    <section className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 rounded-xl">
+    <section id="contribute" className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 rounded-xl">
       <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
         <h2 className="text-3xl md:text-4xl font-bold text-accent mb-8">
