@@ -2,7 +2,7 @@ import { FaArrowRight } from "react-icons/fa";
 
 const JoinConversation = () => {
   return (
-    <section className="bg-neutral-800 text-white py-20 px-6 md:px-12 lg:px-20">
+    <section className="bg-primary rounded-xl text-white py-20 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         
         {/* Text */}

@@ -13,7 +13,7 @@ const companies = [
 
 const Featured = () => {
     return (
-        <section className="bg-neutral-900 text-white py-16 px-6 md:px-12 lg:px-20">
+        <section className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 rounded-xl" >
             <div className="max-w-7xl mx-auto text-center space-y-10">
 
                 {/* Heading */}

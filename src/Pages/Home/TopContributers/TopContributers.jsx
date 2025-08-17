@@ -9,10 +9,10 @@ const contributors = [
 
 const TopContributors = () => {
   return (
-    <section className="bg-neutral-800 text-white py-16 px-6 md:px-12 lg:px-20">
+    <section className="bg-primary text-white py-16 px-6 md:px-12 lg:px-20 rounded-xl">
       <div className="max-w-7xl mx-auto text-center">
         {/* Heading */}
-        <h2 className="text-3xl md:text-4xl font-bold text-sky-500 mb-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-accent mb-8">
           Top Contributors
         </h2>
 
@@ -21,7 +21,7 @@ const TopContributors = () => {
           {contributors.map((user, index) => (
             <div
               key={index}
-              className="bg-slate-900 border border-slate-700 rounded-xl p-4 flex flex-col items-center shadow-md hover:shadow-lg transition"
+              className="bg-secondary border border-slate-700 rounded-xl p-4 flex flex-col items-center shadow-md hover:shadow-lg transition"
             >
               <img
                 src={user.avatar}

@@ -20,7 +20,7 @@ const Tags = () => {
     };
 
     return (
-        <section className="bg-neutral-800 py-10 px-4 mx-2 md:px-8 rounded-xl w-full md:mx-auto">
+        <section className="bg-primary py-10 px-4 mx-2 md:px-8 rounded-xl w-full md:mx-auto">
             <div className="w-full mx-auto">
                 <h2 className="text-3xl font-bold mb-6 text-white">Browse by Tag</h2>
 
@@ -29,7 +29,7 @@ const Tags = () => {
                         <button
                             key={tag._id}
                             onClick={() => handleTagClick(tag?.tag)}
-                            className="bg-white border border-gray-300 text-gray-800 text-sm px-4 py-2 rounded-full hover:bg-indigo-600 hover:text-white transition"
+                            className="btn text-sm px-4 py-2 rounded-full btn-outline border-accent text-white hover:bg-primary transition"
                         >
                             #{tag?.tag}
                         </button>
